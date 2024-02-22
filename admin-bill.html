@@ -1,0 +1,237 @@
+<?php
+    include './assets/PHP/connectdb.php';
+    $id;
+    if(isset($_GET['IdInvoice'])) {
+        $id = $_GET['IdInvoice'];
+        mysqli_query($conn, "UPDATE `customer` c, `invoice_room` i SET AmountOfBooking = AmountOfBooking - 1 WHERE c.IdCustomer = i.IdCustomer AND i.IdInvoiceRoom = '".$id."'");  
+        $cus = mysqli_query($conn, "SELECT * FROM customer");
+        while ($row = $cus->fetch_assoc()) {
+            if ($row["AmountOfBooking"] === '0') {
+                mysqli_query($conn, "DELETE FROM `customer` WHERE IdCustomer = '".$row["IdCustomer"]."'");    
+            } 
+        }
+        mysqli_query($conn, "DELETE FROM `invoice_room` WHERE IdInvoiceRoom = '".$id."'");    
+    }
+?>
+<?php
+    include './assets/PHP/connectdb.php';
+    if (isset($_GET['InvoiceDate']) && isset($_GET['id'])) {
+        $date = $_GET['InvoiceDate'];
+        $id1 = $_GET['id'];
+        mysqli_query($conn, "UPDATE `invoice_room` SET `InvoiceRoomDate` = '".$date."' WHERE IdInvoiceRoom = '".$id1."'");      
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/CSS/base-admin.css">
+    <link rel="stylesheet" href="./assets/CSS/admin.css">
+    <link rel="stylesheet" href="./assets/CSS/admin-room.css">
+    <link rel="stylesheet" href="./assets/CSS/admin-bill.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+
+    <title>ALOHA Admin</title>
+    <link rel="icon" href="./assets/img/logo/logo.png" type="image/x-icon" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+      <!-- SIDE BAR -->
+    <?php 
+        require_once "./sidebar.html";
+        include_once "./side-bar.html";
+    ?>
+
+    <section>
+        <div class="notice">
+            <div class="dropdown">
+                <div class="tabs">
+                    <!-- header -->
+                    <div class="tab-item active">Phòng</div>
+                    <div class="line"></div>
+                </div>
+            
+                    <!-- NOTICE-BELL -->
+                <?php
+                    include './assets/PHP/connectdb.php';
+                    include './assets/PHP/notification.php';
+                    include_once "./notification.html";                    
+                ?>
+            </div>
+        </div>
+
+<!-- HEADING -->
+        <div class="heading">
+            <h1>HÓA ĐƠN </h1>
+        </div>
+<!-- FORM -->
+        <div class="tab-content">
+            <!-- PHÒNG-->
+            <div class="tab-pane add active">
+                <?php  include './searchbar.html';
+                ?>
+                <div class="container">
+                    <table id="update-tab" class="update-table table-infor">
+                        <tr>
+                            <td class="head-table">Số HĐ</td>
+                            <td class="head-table">Mã KH</td>
+                            <td class="head-table">Tên KH</td>
+                            <td class="head-table">SĐT</td>
+                            <td class="head-table">Email</td>
+                            <td class="head-table">Ngày lập HĐ</td>
+                            <td class="head-table">Ngày đặt</td>
+                            <td class="head-table">Ngày ở</td>
+                            <td class="head-table">Ngày trả</td>
+                            <td class="head-table">Loại phòng</td>
+                            <td class="head-table">SL phòng</td>
+                            <td class="head-table">Tổng tiền</td>
+                            <td class="head-table">Tác vụ</td>
+                            <td class="head-table">Hủy</td>
+                        </tr>
+
+                        <?php
+                            
+                            $get_data_bill = mysqli_query($conn, "SELECT distinct i.IdInvoiceRoom, c.IdCustomer, CustomerName, CustomerPhone, CustomerEmail,InvoiceRoomDate, ReservationDate, CheckinDate,CheckoutDate,RoomTypeName,QuantityRoom, InvoiceRoomTotal FROM invoice_room i, customer c, invoice_room_detail id, notification n WHERE i.IdCustomer = c.IdCustomer AND i.IdInvoiceRoom = id.IdInvoiceRoom AND n.IdInvoiceRoom = i.IdInvoiceRoom ORDER BY i.IdInvoiceRoom DESC");
+                            while($bill_rows = $get_data_bill->fetch_assoc())
+                                {
+                            ?>
+                            <tr>
+                                <td><?php echo $bill_rows['IdInvoiceRoom'];?></td>
+                                <td><?php echo $bill_rows['IdCustomer'];?></td>
+                                <td><?php echo $bill_rows['CustomerName'];?></td>
+                                <td><?php echo $bill_rows['CustomerPhone'];?></td>
+                                <td><?php echo $bill_rows['CustomerEmail'];?></td>
+                                <td>
+                                    <?php 
+                                        if($bill_rows['InvoiceRoomDate'] === null)
+                                        {
+                                    ?>
+                                    <input type="date" name="date-bill" id="date-bill" onchange="SetDateInvoice(this)">
+                                    <?php }
+                                    else {
+                                    ?>
+                                    <input type="date" name="date-bill" id="date-bill-value" value="<?php echo $bill_rows['InvoiceRoomDate'] ?>" onchange="SetDateInvoice(this)">
+
+                                    <?php } ?>
+                                </td>
+                                <td><?php echo $bill_rows['ReservationDate'];?></td>
+                                <td><?php echo $bill_rows['CheckinDate'];?></td>
+                                <td><?php echo $bill_rows['CheckoutDate'];?></td>
+                                <td><?php echo $bill_rows['RoomTypeName'];?></td>
+                                <td><?php echo $bill_rows['QuantityRoom'];?></td>
+                                <td><?php echo $bill_rows['InvoiceRoomTotal'];?></td>
+                                <td>
+                                    <button class="print-btn btn-table">In</button>
+                                </td>
+                                <td>
+                                    <select name="cancel-room" class="cancel-room" onchange="isCancel(this)">
+                                        <option value="no-cancel">Không</option>
+                                        <option value="yes-cancel">Có</option>
+                                    </select>
+                                </td>
+                        </tr> 
+                        <?php } ?>
+                        
+                    </table>                    
+
+                </div>                  
+            </div>
+        </div> 
+
+    </section>
+
+    <!-- update trạng thái hủy -->
+    <script>
+        function isCancel(select) {
+            let flag = confirm("Bạn chắc chắn muốn xóa hóa đơn này? Đồng nghĩa khách hàng hủy phòng!");
+            if (flag === true) {
+                function find_pos(row, x) {
+                    var updateTableCells = document.querySelector(".update-table").rows[row].cells; // lấy ra các cell của 1 row
+                    var updateTableRows = document.querySelector(".update-table").rows; 
+                    for (let i = 0; i< updateTableRows.length; i++) {
+                        if (updateTableRows[i] === x.parentElement.parentElement) {
+                            window.location.search += "http://localhost:8080/aloha/admin-bill.html";
+                            let url = "http://localhost:8080/aloha/admin-bill.html";            
+                            window.location.href= url + "?IdInvoice=" + updateTableCells[0].innerHTML;
+                            // document.querySelector(".update-table").deleteRow(row);
+                            break;
+                        }
+                    }
+                }
+                if(select.value === 'yes-cancel') {
+                    find_pos((select.parentElement).parentElement.rowIndex, select);
+                }
+            }else {
+                select.value = "no-cancel";
+            }
+        }
+
+    </script>
+    
+    <!-- update ngày hóa đơn -->
+    <script>
+        $id = 0;
+        function find_pos(row, x) {
+            var updateTableCells = document.querySelector(".update-table").rows[row].cells; // lấy ra các cell của 1 row
+            var updateTableRows = document.querySelector(".update-table").rows; 
+            for (let i = 0; i< updateTableRows.length; i++) {
+                if (updateTableRows[i] === x.parentElement.parentElement) {
+                    $id = updateTableCells[0].innerHTML;
+                    break;
+                }
+            }
+        }
+        function SetDateInvoice(input) {    
+            find_pos((input.parentElement).parentElement.rowIndex, input); 
+            let url = "http://localhost:8080/aloha/admin-bill.html";            
+            window.location.href= url + "?InvoiceDate=" + input.value.slice(2,11) + "&id=" + $id;
+        }
+    </script>
+    
+    <!-- script tab slider -->
+    <script src="./assets/javascript/tab-slider.js"></script>
+
+    <!-- SCRIPT bell -->
+    <script src="./assets/javascript/notificationBell.js"></script>
+    <script src="https://kit.fontawesome.com/c89546c2fd.js" crossorigin="anonymous"></script>
+
+    <!-- SEARCH -->
+    <script>
+        function search_infor() {
+            var input, filter, table, tr, td, i, txtValue;
+            table = document.getElementById("update-tab");
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                name_cus = tr[i].getElementsByTagName("td")[2].innerText.trim();
+                phone_cus = tr[i].getElementsByTagName("td")[3].innerText.trim();
+                email_cus = tr[i].getElementsByTagName("td")[4].innerText.trim();
+                // console.log(document.querySelector('input[name="filter"]:checked').id);
+                switch(document.querySelector('input[name="filter"]:checked').value) {
+                    case "name": find_keyword(name_cus, tr[i]);
+                    break;
+                    case "phone": find_keyword(phone_cus, tr[i]);
+                    break;
+                    default: find_keyword(email_cus, tr[i]);
+                }
+            }
+        }
+        function find_keyword(keyword, row) {
+            filter = document.getElementById("search").value.toUpperCase();
+            if (keyword.toUpperCase().indexOf(filter) > -1) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        }
+       document.getElementById("search").addEventListener('keyup', search_infor);
+       document.querySelector('.searchButton').addEventListener('click', search_infor);
+    </script>
+</body>
+</html>

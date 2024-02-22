@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/CSS/base-admin.css">
+    <link rel="stylesheet" href="./assets/CSS/admin.css">
+    <link rel="stylesheet" href="./assets/CSS/admin-room.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+
+    <title>ALOHA Admin</title>
+    <link rel="icon" href="./assets/img/logo/logo.png" type="image/x-icon" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .room-container {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+      <!-- SIDE BAR -->
+    <?php
+    require_once "./sidebar.html";
+    include_once "./side-bar.html";
+    ?>
+
+    <section>
+        <div class="notice">
+            <div class="dropdown">
+                <div class="tabs">
+                    <!-- header -->
+                    <div class="tab-item active">
+                        Thêm dịch vụ
+                      </div>
+                      <!-- <div class="tab-item">
+                        Xóa dịch vụ
+                      </div> -->
+                      <div class="tab-item">
+                        Quản lý dịch vụ
+                      </div>
+               
+                      <div class="line"></div>
+                </div>
+            
+                    <!-- NOTICE-BELL -->
+                <?php
+                    include './assets/PHP/connectdb.php';
+                    include './assets/PHP/notification.php';
+                    include_once "./notification.html";                    
+                ?>
+            </div>
+        </div>
+
+<!-- HEADING -->
+        <div class="heading">
+            <h1>DỊCH VỤ</h1>
+        </div>
+<!-- FORM -->
+        <div class="tab-content">
+            <!-- THÊM DỊCH VỤ-->
+            <div class="tab-pane add active">
+                <div class="container add">
+                    <form enctype="multipart/form-data" id="form-add" action="./assets/PHP/insert_service.php" method="post">
+                        <div class="room-container">
+                            <div class='room-infor'>
+                                <label for="service-name">Tên dịch vụ *</label>
+                                <input id="service-name" placeholder="Nhập tên dịch vụ" type="text" name="service-name">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+                        
+                        <div class="room-container">
+                            <div class='room-infor'>
+                                <label for="service-price">Giá dịch vụ *</label>
+                                <input id="service-price" placeholder="VND" type="text" name="service-price"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+        
+                        <div id="photo" class="room-container">
+                            <div class="room-infor">
+                                <label for="service-file">Ảnh dịch vụ</label>
+                                <input id="service-file" type="file" id="file" class="form-control" name="service-file" accept=".png, .jpg" />
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+                            
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="service-unit">Đơn vị tính *</label>
+                                <input id="service-unit" placeholder="VND" type="text" name="service-unit"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+
+                        <div class="room-container des">
+                            <div class='room-infor'>
+                                <label for="service-note">Ghi chú</label>
+                                <textarea id="service-note" placeholder="Nhập ghi chú" type="text" name="service-note" rows="5"></textarea>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>  
+                        <button id="btn-save" type="submit" class="btn" name="btn-add-service">Lưu</button>
+                    </form>
+                    </div>                  
+            </div>
+        </div>
+        
+            <!-- CHỈNH SỬA -->
+            <div class="tab-pane" >
+                <div class='container'>
+                    <table id="update-tab" class="update-table table-infor" width="1000">
+                        <tr>
+                            <td class="head-table">Tên dịch vụ</td>
+                            <td class="head-table">Đơn giá</td>
+                            <td class="head-table">Đơn vị tính</td>
+                            <td class="head-table">Ghi chú</td>
+                            <td class="head-table">Url ảnh</td>
+                            <td class="head-table">Tác vụ</td>
+                        </tr>
+
+                        <?php
+                        $get_data_service = mysqli_query($conn, "SELECT * FROM service");
+                        while($service_rows = $get_data_service->fetch_assoc())
+                         {
+                        ?>
+                            <tr>
+                                <td><?php echo $service_rows['ServiceName'];?></td>
+                                <td><?php echo $service_rows['ServicePrice'];?></td>
+                                <td><?php echo $service_rows['Unit'];?></td>
+                                <td><?php echo $service_rows['ServiceNote'];?></td>
+                                <td><?php echo $service_rows['ServiceImage'];?></td>
+                                <td>
+                                    <button class="upd-btn btn-table" onclick="openUpdate(this)">Sửa</button>
+                                    <button class="del-btn btn-table" data-bs-toggle="modal" data-bs-target="#delete-service" onclick="OpenModalDelete(this)">Xóa</button>
+                                </td>
+                            </tr>
+                        <?php
+                         }
+                        ?>   
+                    </table>                    
+
+                </div>
+
+            </div>
+            <!-- form chỉnh sửa -->
+            <div>
+                <div class="container add form" style ="margin-top: 20px">
+                    <form id="form-update-room" method="post" action="./assets/PHP/update_service.php" enctype="multipart/form-data">
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="service-name-update">Tên dịch vụ</label>
+                                <input id="service-name-update" placeholder="Nhập tên dịch vụ" type="text" name="service-name-update">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+                        
+                        <div class="room-container">
+                            <div class='room-infor'>
+                                <label for="service-price-update">Giá dịch vụ</label>
+                                <input id="service-price-update" placeholder="VND" type="text" name="service-price-update"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+        
+                        <div id="photo" class="room-container">
+                            <div class="room-infor">
+                                <label for="service-file-update">Hình ảnh dịch vụ</label>
+                                <input type="file" id="service-file-update" class="form-control" name="service-file-update">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+    
+                        <div class="room-container des">
+                            <div class='room-infor'>
+                                <label for="service-unit-update">Đơn vị tính</label>
+                                <input id="service-unit-update" type="text" placeholder="Nhập mô tả" type="radio" name="service-unit-update">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>    
+
+                        <div class="room-container des">
+                            <div class='room-infor'>
+                                <label for="service-note-update">Ghi chú</label>
+                                <input id="service-note-update" type="text" placeholder="Nhập mô tả" type="radio" name="service-note-update">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>              
+                              
+                        <button type ="submit" name="btn-save-update" class="btn btn-save-form">Lưu</button>
+                        <button type="button" class="btn btn-exit-form" onclick="exitUpdate()">Thoát</button>
+                    </form>
+                </div>                  
+            </div>
+            <!-- form xóa -->
+            <form action="./assets/PHP/delete_service.php" method="POST">
+                <div class="modal fade" id="delete-service" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Xóa sự kiện</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body notice-content">
+                                <p>Bạn muốn xóa <span class="room-name-notice"></span></p>
+                                <p><i class="fa-solid fa-circle-exclamation icon-exclamation"></i></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Quay
+                                    lại</button>
+                                <button type="submit" name ="btn-del" class="btn btn-danger" onclick="DeleteService(this)">Xóa</button>
+                                <!-- Bắt sự kiện khi bấm button Xóa phòng -->                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </section>
+
+    <!-- bắt sự kiện cho button xóa  -->
+    <script>
+        var name_of_service = '';
+        function find_pos(row, x) {
+            var updateTableCells = document.querySelector(".update-table").rows[row].cells; // lấy ra các cell của 1 row
+            var updateTableRows = document.querySelector(".update-table").rows; 
+            for (let i = 0; i< updateTableRows.length; i++) {
+                if (updateTableRows[i] === x.parentElement.parentElement ) {
+                    name_of_service = updateTableCells[0].innerText;
+                    break;
+                }
+            }
+        } 
+
+        // Mở form xóa
+        function OpenModalDelete(button) {
+            find_pos((button.parentElement).parentElement.rowIndex, button);
+            document.querySelector('.room-name-notice').innerText = name_of_service.toUpperCase();
+        }
+
+        // xóa luôn
+        function createCookie(name, value, second) {
+            var date = new Date();
+            date.setTime(date.getTime()+(second*1000));
+            var expires = "; expires="+date.toGMTString();
+            document.cookie = name+"="+value+expires+"; path=/";
+        }
+        function DeleteService(button) {
+            createCookie("ServiceName", name_of_service, 5);
+        }
+    </script>
+    <?php
+        function get_servicename() {
+            include './assets/PHP/connectdb.php';
+            $arr = array();
+            $ser_rows =  $conn->query("select * from service");
+            while($get_data_ser = $ser_rows->fetch_assoc()) {
+                array_push($arr, $get_data_ser["ServiceName"]);
+            }
+            return (json_encode($arr,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+        }
+        function get_serviceimg() {
+            include './assets/PHP/connectdb.php';
+            $arr = array();
+            $ser_rows =  $conn->query("select * from service");
+            while($get_data_ser = $ser_rows->fetch_assoc()) {
+                array_push($arr, $get_data_ser["ServiceImage"]);
+            }
+            return (json_encode($arr,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+        }
+    ?>
+
+     <!-- bắt sự kiện cho button sửa -->
+     <script>
+        var old_name = '', old_url = '';
+        function openUpdate(button) {
+            btnExitForm.style.display = "block";
+            updateRoomForm.style.display="block";
+            updateTab.classList.add('close');
+
+            function find_pos(row, x) {
+                var updateTableCells = document.querySelector(".update-table").rows[row].cells; // lấy ra các cell của 1 row
+                var updateTableRows = document.querySelector(".update-table").rows; 
+                for (let i = 0; i< updateTableRows.length; i++) {
+                    if (updateTableRows[i] === x.parentElement.parentElement ) {
+                        document.getElementById('service-name-update').value = updateTableCells[0].innerText;
+                        old_name =  updateTableCells[0].innerText;
+                        document.getElementById('service-price-update').value = updateTableCells[1].innerText;
+                        document.getElementById('service-unit-update').value = updateTableCells[2].innerText;
+                        document.getElementById('service-note-update').value = updateTableCells[3].innerText;
+                        const myFile = new File(['Hello World!'], updateTableCells[4].innerText, {
+                            type: 'text/plain',
+                            lastModified: new Date(),
+                        });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(myFile);
+                        document.getElementById('service-file-update').files = dataTransfer.files;
+                        old_url = updateTableCells[4].innerText;
+                        break;
+                    }
+                }
+            } 
+            find_pos((button.parentElement).parentElement.rowIndex, button);
+        }
+        
+        // Bắt sự kiện cho button Lưu
+        document.querySelector('.btn-save-form').addEventListener('click', function(e) {
+            var arrNameSer = JSON.parse('<?= get_servicename(); ?>');
+            var arrImgSer = JSON.parse('<?= get_serviceimg(); ?>');
+            document.cookie = "old_name" + "=" + old_name;
+            document.cookie = "old_url" + "=" + old_url;
+            var fullPath = document.getElementById('service-file-update').value;
+            var filename = fullPath.replace(/^.*[\\\/]/, '');
+   
+            for (let i = 0; i < arrNameSer.length; i++) {
+                if (old_name === document.getElementById('service-name-update').value) {
+                    continue;
+                } 
+                if (arrNameSer[i] === document.getElementById('service-name-update').value) {
+                    e.preventDefault();
+                    alert("Dịch vụ đã tồn tại!");
+                } 
+            }    
+            for (let i = 0; i < arrImgSer.length; i++) {
+                if (old_url === filename) {
+                    continue;
+                }
+                if (arrImgSer[i] === filename) {
+                    e.preventDefault();
+                    alert("Hình ảnh đã tồn tại ở 1 dịch vụ khác!");
+                }
+            }      
+        });
+       
+        
+    </script>
+
+
+     <!-- SCRIPT bell -->
+     <script src="./assets/javascript/notificationBell.js"></script>
+
+     <!-- script tab slider -->
+     <script src="./assets/javascript/tab-slider.js"></script>
+
+    <script src="https://kit.fontawesome.com/c89546c2fd.js" crossorigin="anonymous"></script>
+
+    <!-- Kiểm tra điều kiện nhập đầy đủ thông tin -->
+    <script src="./assets/javascript/formValidation.js"></script>
+    <script>
+        var arrName = JSON.parse('<?= get_servicename(); ?>');
+        Validator({
+            form: '#form-add',
+            formGroupSelector: '.room-container',
+            errorSelector: '.invalid-message',
+            rules: [
+                Validator.isRequired('#service-name', 'Vui lòng nhập tên dịch vụ'),
+                Validator.isExisted('#service-name', arrName, 'Dịch vụ đã tồn tại'),
+                Validator.isRequired('#service-price', 'Vui lòng nhập đơn giá dịch vụ'),
+                Validator.isRequired('#service-unit', 'Vui lòng nhập đơn vị tính'),
+                Validator.isRequired('#service-file', 'Vui lòng chọn hình ảnh'),
+            ],
+        });
+        Validator({
+            form: '#form-update-room',
+            formGroupSelector: '.room-container',
+            errorSelector: '.invalid-message',
+            rules: [
+                Validator.isRequired('#service-name-update', 'Vui lòng nhập tên dịch vụ'),
+                Validator.isRequired('#service-price-update', 'Vui lòng nhập đơn giá dịch vụ'),
+                Validator.isRequired('#service-unit-update', 'Vui lòng nhập đơn vị tính'),
+                Validator.isRequired('#service-file-update', 'Vui lòng chọn hình ảnh'),
+            ],
+        });
+    </script>
+
+</body>
+</html>

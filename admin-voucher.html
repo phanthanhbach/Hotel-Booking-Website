@@ -1,0 +1,402 @@
+<?php
+    include './assets/PHP/connectdb.php';
+    if(isset($_GET['VoucherCode']) && isset($_GET['isStopped'])) {
+        $code = $_GET['VoucherCode'];
+        $date = date("Y/m/d");
+        $isStopped = $_GET['isStopped'];
+        if ($isStopped === '0') {
+            mysqli_query($conn, "UPDATE voucher SET ActiveDate = null, Status = 0 WHERE '".$code."' = VoucherCode");
+        } else {
+            mysqli_query($conn, "UPDATE voucher SET ActiveDate = '".$date."', Status = 1 WHERE '".$code."' = VoucherCode");
+        }
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/CSS/base-admin.css">
+    <link rel="stylesheet" href="./assets/CSS/admin-room.css">
+    <link rel="stylesheet" href="./assets/CSS/admin.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+
+    <title>ALOHA Admin</title>
+    <link rel="icon" href="./assets/img/logo/logo.png" type="image/x-icon" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <style>
+        .room-container {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+      <!-- SIDE BAR -->
+    <?php 
+        require_once "./sidebar.html";
+        include_once "./side-bar.html";
+    ?>
+
+    <section>
+        <div class="notice">
+            <div class="dropdown">
+                <div class="tabs">
+                    <!-- header -->
+                    <div class="tab-item active">
+                        Thêm voucher 
+                    </div>
+                    
+                      <div class="tab-item">
+                        Quản lý voucher
+                      </div>
+               
+                      <div class="line"></div>
+                </div>
+            
+                    <!-- NOTICE-BELL -->
+                <?php
+                    include './assets/PHP/connectdb.php';
+                    include './assets/PHP/notification.php';
+                    include_once "./notification.html";                    
+                ?>
+            </div>
+        </div>
+
+<!-- HEADING -->
+        <div class="heading">
+            <h1>VOUCHER</h1>
+        </div>
+<!-- FORM -->
+        <div class="tab-content">
+            <!-- THÊM SỰ KIỆN-->
+            <div class="tab-pane add active">
+                <div class="container add">
+                    <form id="form-add" method="post" action="./assets/PHP/insert_voucher.php">
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="code-voucher">Mã voucher *</label>
+                                <input id="code-voucher" placeholder="Nhập mã voucher" type="text" name="code-voucher" style="text-transform:uppercase">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="percent">Số phần trăm giảm *</label>
+                                <input id="percent" placeholder="Nhập số phần trăm sẽ giảm" type="text" name="percent">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="minprice">Giá trị đơn hàng tối thiểu *</label>
+                                <input id="minprice" placeholder="Nhập giá trị đơn hàng tối thiểu" type="text" name="minprice">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+    
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="voucher-note">Mô tả ngắn *</label>
+                                <input id="voucher-note" placeholder="Nhập mô tả ngắn" type="text" name="voucher-note"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>  
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="quantity">Số lượng voucher *</label>
+                                <input id="quantity" placeholder="Nhập số lượng voucher" type="text" name="quantity"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>  
+
+                        
+
+                        <div class="room-container">
+                            <div class="form-check-inline room-status room-infor">
+                                <label for="">Trạng thái *</label>
+                                <div style="flex: 1.1; margin-left: 15px;">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="radio-active" checked="checked" id="active" value="1">
+                                        <label class="form-check-label" for="active">Kích hoạt ngay</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="radio-active" id="unactive" value="0">
+                                        <label class="form-check-label" for="unactive">Kích hoạt sau</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>  
+
+                                             
+                        <button type="submit" name="add-voucher" id="btn-save" class="btn">Lưu</button>
+                    </form>
+                    </div>                  
+            </div>
+
+            </div>
+            
+            <!-- CHỈNH SỬA -->
+            <div class="tab-pane" >
+                <div class="container">
+                    <table id="update-tab" class="update-table table-infor">
+                        <tr>
+                            <td class="head-table">Mã voucher</td>
+                            <td class="head-table">Số phần trăm giảm</td>
+                            <td class="head-table">Giá trị tối thiểu</td>
+                            <td class="head-table">Trạng thái</td>
+                            <td class="head-table">Ngày kích hoạt</td>
+                            <td class="head-table">SL voucher</td>
+                            <td class="head-table">SL đã dùng</td>
+                            <td class="head-table">Mô tả ngắn</td>
+                            <td class="head-table">Tác vụ</td>
+                        </tr>
+
+                        <?php
+                            $data = mysqli_query($conn,"SELECT * FROM voucher ORDER BY Percent ASC");
+                            while ($row = $data->fetch_assoc()) {
+                        ?>
+                        <tr>
+                            <td><?php echo $row['VoucherCode'] ?></td>
+                            <td><?php echo $row['Percent'] ?></td>
+                            <td><?php echo $row['MinPrice'] ?></td>
+                            <td>
+                                <select name="action" id="action" onchange="stopActive(this)" style="width: 150px;">
+                                    <?php
+                                        if ($row['Status'] === '1') {
+                                            echo '<option value="active">Kích hoạt</option>';
+                                            echo '<option value="untive">Ngưng kích hoạt</option>';
+                                        } else {
+                                            echo '<option value="untive">Ngưng kích hoạt</option>';
+                                            echo '<option value="active">Kích hoạt</option>';
+                                        }
+                                    ?>
+                                    
+                                </select>
+                            </td>
+                            <td><?php echo $row['ActiveDate'] ?></td>
+                            <td><?php echo $row['Quantity'] ?></td>
+                            <td><?php echo $row['QuantityUsed'] ?></td>
+                            <td><?php echo $row['VoucherNote'] ?></td>
+                            <td>
+                                <button class="upd-btn btn-table" onclick="openUpdate(this)" style="margin: 5px;">Sửa</button>
+                                <button type="button" class="del-btn btn-table" data-bs-toggle="modal" data-bs-target="#delete-voucher" style="margin-bottom: 5px;" onclick="openModalDelete(this)">Xóa</button>
+                            </td>
+                            
+                        </tr>
+                        <?php } ?>
+                    </table>                    
+
+                </div>
+
+            </div>
+            <!-- form chỉnh sửa -->
+            <div>
+                <div class="container add form" style ="margin-top: 20px">
+                    <form id="form-update-room" method="post" action="./assets/PHP/update_voucher.php">
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="code-voucher-upd">Mã voucher *</label>
+                                <input id="code-voucher-upd" type="text" name="code-voucher-upd" readonly style="background: #ddd;">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="percent-upd">Số phần trăm giảm *</label>
+                                <input id="percent-upd" placeholder="Nhập số phần trăm sẽ giảm" type="text" name="percent-upd">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="minprice-upd">Giá trị đơn hàng tối thiểu *</label>
+                                <input id="minprice-upd" placeholder="Nhập giá trị đơn hàng tối thiểu" type="text" name="minprice-upd">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+    
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="voucher-note-upd">Mô tả ngắn *</label>
+                                <input id="voucher-note-upd" placeholder="Nhập mô tả ngắn" type="text" name="voucher-note-upd"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>  
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="quantity-upd">Số lượng *</label>
+                                <input id="quantity-upd" placeholder="Nhập số lượng voucher" type="text" name="quantity-upd"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div> 
+                                                      
+                        <button type="submit" id="btn-save-update" class="btn btn-save-form">Lưu</button>
+                        <button class="btn btn-exit-form" type="button" onclick="exitUpdate()">Thoát</button>
+                    </form>
+                </div>                  
+            </div>
+        </div> 
+        <!-- form xóa -->
+        <form action="./assets/PHP/delete_voucher.php" method="POST">
+            <div class="modal fade" id="delete-voucher" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Xóa phòng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body notice-content">
+                            <p>Bạn muốn xóa <span class="room-name-notice">PHÒNG 101</span></p>
+                            <p><i class="fa-solid fa-circle-exclamation icon-exclamation"></i></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Quay
+                                lại</button>
+                            <button type="submit" name ="btn-del" class="btn btn-danger" onclick="DeleteVoucher(this)">Xóa</button>
+                            <!-- Bắt sự kiện khi bấm button Xóa phòng -->                                
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+     <!-- Set data khi bấm button sửa -->
+     <script>
+        function openUpdate(button) {
+            btnExitForm.style.display = "block";
+            updateRoomForm.style.display="block";
+            updateTab.classList.add('close');
+    
+            function find_pos(row, x) {
+                var updateTableCells = document.querySelector(".update-table").rows[row].cells; // lấy ra các cell của 1 row
+                var updateTableRows = document.querySelector(".update-table").rows; 
+                for (let i = 0; i < updateTableRows.length; i++) {
+                    if (updateTableRows[i] === x.parentElement.parentElement ) {
+                        document.getElementById('code-voucher-upd').value = updateTableCells[0].innerText.trim();
+                        document.getElementById('percent-upd').value = updateTableCells[1].innerText.trim();
+                        document.getElementById('minprice-upd').value = updateTableCells[2].innerText.trim();
+                        document.getElementById('quantity-upd').value = updateTableCells[5].innerText.trim();
+                        document.getElementById('voucher-note-upd').value = updateTableCells[7].innerText.trim();
+                        break;
+                    }
+                }
+            } 
+            find_pos((button.parentElement).parentElement.rowIndex, button);
+        } 
+    </script>
+
+    <!-- Bắt sự kiện khi bấm button xóa -->
+    <script>
+        var code = '';
+        function openModalDelete(button) {
+            function find_pos(row, x) {
+                var updateTableCells = document.querySelector(".update-table").rows[row].cells; // lấy ra các cell của 1 row
+                var updateTableRows = document.querySelector(".update-table").rows; 
+                for (let i = 0; i< updateTableRows.length; i++) {
+                    if (updateTableRows[i] === x.parentElement.parentElement ) {
+                        return updateTableCells[0].innerText.trim();
+                        break;
+                    }
+                }
+                return false;
+            } 
+            code = find_pos((button.parentElement).parentElement.rowIndex, button);
+            document.querySelector('.room-name-notice').innerText = "VOUCHER " + code.toUpperCase();
+            return roomname;
+        }
+        function DeleteVoucher(button) {
+            document.cookie = "code" + "=" + code; 
+        }   
+    </script>
+
+    <!-- Hủy kích hoạt voucher -->
+    <script>
+        function stopActive(select) {
+            var vouchercode, isStopped = 0;
+            function find_pos(row, x) {
+                var updateTableCells = document.querySelector(".update-table").rows[row].cells; // lấy ra các cell của 1 row
+                var updateTableRows = document.querySelector(".update-table").rows; 
+                for (let i = 0; i< updateTableRows.length; i++) {
+                    if (updateTableRows[i] === x.parentElement.parentElement) {
+                        vouchercode = updateTableCells[0].innerText.trim();
+                        break;
+                    }
+                }
+            } 
+            find_pos((select.parentElement).parentElement.rowIndex, select);
+            if (select.value === "active") {
+                isStopped = 1;
+            }
+            let url = "http://localhost:8080/aloha/admin-voucher.html";            
+            window.location.href= url + "?VoucherCode=" + vouchercode  + "&isStopped=" + isStopped;
+        } 
+    </script>
+
+     <!-- SCRIPT bell -->
+     <script src="./assets/javascript/notificationBell.js"></script>
+
+     <!-- script tab slider -->
+     <script src="./assets/javascript/tab-slider.js"></script>
+
+    <script src="https://kit.fontawesome.com/c89546c2fd.js" crossorigin="anonymous"></script>
+
+    <?php
+        function get_voucher() {
+            include './assets/PHP/connectdb.php';
+            $arr = array();
+            $room_rows =  $conn->query("select VoucherCode from voucher");
+            while($get_data_room = $room_rows->fetch_assoc()) {
+                array_push($arr, $get_data_room["VoucherCode"]);
+            }
+            return (json_encode($arr,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+        }
+    ?>
+    <!-- Kiểm tra điều kiện nhập đầy đủ thông tin -->
+    <script src="./assets/javascript/formValidation.js"></script>
+    <script>
+        var arrName = JSON.parse('<?= get_voucher(); ?>');
+        Validator({
+            form: '#form-add',
+            formGroupSelector: '.room-container',
+            errorSelector: '.invalid-message',
+            rules: [
+                Validator.isRequired('#code-voucher', 'Vui lòng nhập mã voucher'),
+                Validator.isExisted('#code-voucher', arrName, 'Voucher đã tồn tại'),
+                Validator.isRequired('#percent', 'Vui lòng nhập số phần trăm giảm'),
+                Validator.maxNumber('#percent', "Vui lòng nhập bé hơn hoặc bằng 100"),
+                Validator.isRequired('#minprice', 'Vui lòng nhập giá trị đơn hàng tối thiểu'),
+                Validator.isRequired('#voucher-note', 'Vui lòng nhập mô tả ngắn'),
+                Validator.isRequired('#quantity', 'Vui lòng nhập tổng số lượng voucher'),
+                Validator.isNumber('#quantity'),
+            ],
+        });
+        Validator({
+            form: '#form-update-room',
+            formGroupSelector: '.room-container',
+            errorSelector: '.invalid-message',
+            rules: [
+                Validator.isRequired('#percent-upd', 'Vui lòng nhập số phần trăm giảm'),
+                Validator.maxNumber('#percent-upd', "Vui lòng nhập bé hơn hoặc bằng 100"),
+                Validator.isRequired('#minprice-upd', 'Vui lòng nhập giá trị đơn hàng tối thiểu'),
+                Validator.isRequired('#voucher-note-upd', 'Vui lòng nhập mô tả ngắn'),
+            ],
+        });
+    </script>
+
+</body>
+</html>

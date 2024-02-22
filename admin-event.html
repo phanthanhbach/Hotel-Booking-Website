@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/CSS/base-admin.css">
+    <link rel="stylesheet" href="./assets/CSS/admin-room.css">
+    <link rel="stylesheet" href="./assets/CSS/admin.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+
+    <title>ALOHA Admin</title>
+    <link rel="icon" href="./assets/img/logo/logo.png" type="image/x-icon" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+      <!-- SIDE BAR -->
+    <?php 
+        require_once "./sidebar.html";
+        include_once "./side-bar.html";
+    ?>
+
+    <section>
+        <div class="notice">
+            <div class="dropdown">
+                <div class="tabs">
+                    <!-- header -->
+                    <div class="tab-item active">
+                        Thêm sự kiện 
+                    </div>
+                    
+                      <div class="tab-item">
+                        Quản lý sự kiện
+                      </div>
+               
+                      <div class="line"></div>
+                </div>
+            
+                    <!-- NOTICE-BELL -->
+                <?php
+                    include './assets/PHP/connectdb.php';
+                    include './assets/PHP/notification.php';
+                    include_once "./notification.html";                    
+                ?>
+            </div>
+        </div>
+
+<!-- HEADING -->
+        <div class="heading">
+            <h1>SỰ KIỆN (TÍNH NĂNG ĐANG PHÁT TRIỂN)</h1>
+        </div>
+<!-- FORM -->
+        <div class="tab-content">
+            <!-- THÊM SỰ KIỆN-->
+            <div class="tab-pane add active">
+                <div class='container add'>
+                    <form id="form-add">
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-name">Tên sự kiện *</label>
+                                <input id="event-name" placeholder="Nhập tên sự kiện" type="text" name="event-name">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-file" class="form-label">Video sự kiện *</label>
+                                <input type="file" id="event-file" class="form-control" name="event-file"/>
+                            </div>
+                            <span class="invalid-message" id="invalid-message-imgs"></span>
+                        </div>
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-price">Đơn giá *</label>
+                                <input id="event-price" placeholder="VND" type="text" name="event-price"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+    
+                        <div class="room-container des">
+                            <div class="room-infor">
+                                <label for="event-des">Mô tả</label>
+                                <textarea id="event-des" placeholder="Nhập ghi chú" type="text" name="event-des" rows="5"></textarea>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>  
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-note">Ghi chú *</label>
+                                <input id="event-note" placeholder="VND" type="text" name="event-note"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>                       
+                        <button id="btn-save" class="btn">Lưu</button>
+                    </form>
+                    </div>                  
+            </div>
+
+            </div>
+            
+            <!-- CHỈNH SỬA -->
+            <div class="tab-pane" >
+                <div class='container'>
+                    <table id="update-tab" class="update-table table-infor" width="1000">
+                        <tr>
+                            <td class="head-table">Loại sự kiện</td>
+                            <td class="head-table">Mô tả</td>
+                            <td class="head-table">Đơn giá</td>
+                            <td class="head-table">Ghi chú</td>
+                            <td class="head-table">Url video</td>
+                            <td class="head-table"> Tác vụ </td>
+                        </tr>
+
+                        <?php
+                        include './assets/PHP/connectdb.php';
+                        $get_data_event = mysqli_query($conn, "SELECT * FROM event");
+                        while($event_rows = $get_data_event->fetch_assoc())
+                         {
+                        ?>
+                            <tr>
+                                <td><?php echo $event_rows['EventName'];?></td>
+                                <td><?php echo $event_rows['EventDescription'];?></td>
+                                <td><?php echo $event_rows['EventPrice'];?></td>
+                                <td><?php echo $event_rows['EventNote'];?></td>
+                                <td><?php echo $event_rows['EventVideo'];?></td>
+                                <td>
+                                    <button class="upd-btn btn-table" onclick="openUpdate(this)">Sửa</button>
+                                    <button class="del-btn btn-table">Xóa</button>
+                                </td>
+                            </tr>
+                        <?php
+                         }
+                        ?>   
+                    </table>                    
+
+                </div>
+
+            </div>
+            <!-- form chỉnh sửa -->
+            <div>
+                <div class="container add form" style ="margin-top: 20px">
+                    <form id="form-update-room">
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-name">Tên sự kiện *</label>
+                                <input id="event-name" placeholder="Nhập tên sự kiện" type="text" name="event-upd-name">
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+                        
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-upd-file" class="form-label">Video sự kiện *</label>
+                                <input type="file" id="event-upd-file" class="form-control" name="event-upd-file" accept="video/mp4,video/x-m4v,video/*"/>
+                            </div>
+                            <span class="invalid-message" id="invalid-message-imgs"></span>
+                        </div>
+
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-upd-price">Đơn giá *</label>
+                                <input id="event-upd-price" placeholder="VND" type="text" name="event-upd-price"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>
+    
+                        <div class="room-container des">
+                            <div class="room-infor">
+                                <label for="event--upddes">Mô tả</label>
+                                <textarea id="event-upd-des" placeholder="Nhập ghi chú" type="text" name="event-upd-des" rows="5"></textarea>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>  
+                         
+                        <div class="room-container">
+                            <div class="room-infor">
+                                <label for="event-upd-note">Ghi chú *</label>
+                                <input id="event-upd-note" placeholder="VND" type="text" name="event-upd-price"></input>
+                            </div>
+                            <span class="invalid-message"></span>
+                        </div>   
+                              
+                        <button id="btn-save-update" class="btn btn-save-form">Lưu</button>
+                        <button class="btn btn-exit-form" onclick="exitUpdate()">Thoát</button>
+                    </form>
+                </div>                  
+            </div>
+        </div> 
+    </section>
+
+     <!-- SCRIPT bell -->
+     <script src="./assets/javascript/notificationBell.js"></script>
+
+     <!-- script tab slider -->
+     <script src="./assets/javascript/tab-slider.js"></script>
+
+    <script src="https://kit.fontawesome.com/c89546c2fd.js" crossorigin="anonymous"></script>
+
+    <!-- Kiểm tra điều kiện nhập đầy đủ thông tin -->
+    <script src="./assets/javascript/formValidation.js"></script>
+    <script>
+        Validator({
+            form: '#form-add',
+            formGroupSelector: '.room-container',
+            errorSelector: '.invalid-message',
+            rules: [
+                Validator.isRequired('#event-name', 'Vui lòng nhập tên sự kiện'),
+                Validator.isRequired('#event-price', 'Vui lòng nhập đơn giá sự kiện'),
+                Validator.isRequired('#event-file', 'Vui lòng chọn hình ảnh'),
+                Validator.isRequired('#event-des', 'Vui lòng nhập mô tả sự kiện'),
+                Validator.minLength('#event-des', 10),
+            ],
+        });
+    </script>
+
+</body>
+</html>
