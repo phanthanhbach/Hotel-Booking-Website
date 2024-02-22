@@ -1,0 +1,126 @@
+#header {
+    height: var(--height-header);
+    background-color: var(--black-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 500000;
+    display: flex;
+    justify-content: space-between;
+}
+#img-logo{
+    list-style: none;
+    text-decoration: none;
+    height: 150px;
+    margin-top: -40px;
+}
+#open-nav-icon {
+    display: none;
+}
+#nav {
+    font-family: UTM-Aptima;
+}
+#nav > li {
+    display: inline-block;
+    position: relative;
+}
+#nav > li > a {
+    padding: 15px 20px;
+    line-height: 100px;
+    line-height: var(--height-header);
+    list-style: none;
+    text-decoration: none;
+    color: var(--white-color);
+    transition: all ease 0.5s;
+}
+
+#nav .icon-down {
+    margin-left: 5px;
+    
+}
+#nav > li:hover > a{
+    color: var(--subnav-hover);
+}
+#nav .subnav {
+    display: none;
+    position: absolute;
+    top: var(--height-header);
+    left: 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+#nav .subnav li {
+    display: inline-block;
+    width: 145.5px;
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+}
+#nav .subnav a {
+    text-decoration: none;
+    color: var(--black-color);  
+}
+#nav li:hover .subnav {
+    display: block;
+}
+#close-nav-icon {
+    display: none;
+}
+.slider-container {
+    /* margin-top: var(--height-header); */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-color: none;
+}
+
+.video-background {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+}
+#slider .content {
+    font-size: 20px;
+    text-align: center;
+    color: var(--white-color);
+    position: absolute;
+    bottom: 50px;
+    z-index: 2;
+}
+#slider .content h2 {
+    font-family: uvn-bale;
+    font-weight: 1000;
+    margin-bottom: 30px;
+    animation: fromLeft 3s;
+}
+#slider .content p {
+    font-family: nexa;
+    margin: 0 16px;
+    font-weight: 700;
+    animation: fromRight 3s;
+}
+@keyframes fromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-400px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+@keyframes fromRight {
+    from {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+.slider-container {
+    height: 91vh;
+}

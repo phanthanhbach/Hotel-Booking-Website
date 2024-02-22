@@ -1,0 +1,23 @@
+:root {
+    --side-bar: #3A3A3A;
+    --black-color: #000;
+    --white-color: #fff;
+    --text: #F9B456;
+    --theme: #F0F2F5;
+    --green-color: #008037;
+    --red-color: #FF1616;
+    --color-blue: #7499a2;
+    --color-pink: #e29c89;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--theme) !important;
+}

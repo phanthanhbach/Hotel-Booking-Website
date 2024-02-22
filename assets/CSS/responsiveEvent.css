@@ -1,0 +1,130 @@
+@media (min-width: 1025px) {
+    
+    .content-body {
+        height: 90vh;
+        background: none;
+        justify-content: space-evenly;
+        padding: 0 50px !important;
+    }
+    #content .group-img-content{
+        position: relative;
+        flex: 1;
+        /* padding-left: 100px; */
+    }
+    #content .group-img-content.wedding {
+        padding-left: 200px;
+        padding-right: 0;
+    }
+    #content .frame-video {
+        width: 500px;
+        height: 500px;
+        position: relative;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    #content .video-event {
+        height: 450px;
+        position: absolute;
+        top: 25px;
+        right: -80px;
+        border-radius: 10px;
+    }
+    #content .video-event.wedding {
+        left: -80px;
+    }
+    #content .video-event.meeting {
+        top: -40px;
+        right: -40px;
+    }
+    .infor-body {
+        padding: 0 0 0 100px;
+    }
+    .infor-body p {
+        /* max-width: 600px; */
+        overflow-y: auto;
+    }
+    .infor-body.body-wedding {
+        padding-left: 0;
+    }
+    #main-content .showmore-btn {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    
+    #slider .img-slider {
+        height: auto;
+    } 
+    #slider .content {
+        bottom: -70px;
+        padding-bottom: 0px;
+    }
+    #slider .content h2 {
+        font-size: 40px !important;
+        height: 100px;
+        margin-top: 10px;
+    }
+        
+    #main-content .content-body {
+        padding: 0;
+    }
+    #main-content .img-event {
+        height: auto;
+    }
+    #content .video-event {
+        max-width: 450px;
+        outline: none;
+    }
+    #main-content .infor-body {
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+    }
+    #content #birthday {
+        margin: 0;
+        padding-top: 20px;
+    }
+    #slider .content h2 {
+        width: fit-content;
+        font-size: 30px;
+        padding: 0;
+    }
+    #content .intro-event .col-1,
+    #content .intro-event .col-2 {
+        padding: 0;
+    }
+    #main-content .showmore-btn {
+        padding: 10px 20px;
+    }
+}
+@media (max-width: 740px) {
+    #slider .content {
+        height: 100px;
+        bottom: -50px;
+        padding-top: 20px;
+    }
+    #slider .content h2 {
+        font-size: 30px !important;
+        height: 70px;
+        /* margin-top: 10px; */
+    }
+    #content .video-event {
+        max-width: 330px;
+    }
+    #content .intro-event li {
+        font-size: 14px;
+    }
+    #main-content .infor-body h2 {
+        font-size: 20px;
+    }
+    #main-content .infor-body p {
+        font-size: 13px;
+    }
+}
+@media (max-width: 360px) {
+    #content .video-event {
+        max-width: 280px;
+    }
+}
+

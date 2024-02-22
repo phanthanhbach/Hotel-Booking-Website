@@ -1,0 +1,117 @@
+@media (min-width: 1025px) {
+    #content .sub-content {
+        font-size: 100px; 
+      }
+}
+
+@media (max-width: 1024px) {
+    #slider .content {
+        bottom: -70px;
+        padding-bottom: 0px;
+    }
+    #slider .content h2 {
+        font-size: 40px !important;
+        height: 100px;
+        margin-top: 10px;
+    }
+    #slider .content h2 {
+        width: fit-content;
+        font-size: 30px;
+        padding: 0;
+    }
+    #content .intro-event .col-1,
+    #content .intro-event .col-2 {
+        padding: 0 ;
+    }
+}
+
+
+  /*------- DISCOUNT --------*/
+
+
+@media (max-width: 991.98px)
+{
+  .site-section {
+    padding: 3rem 0;
+  }
+  .intro-service .align-items-center {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px)
+{
+  
+}
+
+.site-section .container {
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px)
+{
+  .site-section {
+    padding: 5em 0;
+  }
+  .site-section .container {
+    max-width: 720px;
+  }
+  .coming-container .col-md-3 {
+    max-width: 100%;
+  }
+  .coming-container {
+    max-width: 720px;
+  }
+  .order {
+    -webkit-box-ordinal-group: 2;
+    order: 1;
+  }
+  .order {
+    -webkit-box-flex: 0;
+    flex: 0 0 75%;
+    max-width: 100%;
+  } 
+}
+
+@media (min-width: 576px)
+{
+  .site-section .container {
+    max-width: 540px;
+  }
+}
+
+  /* ----------------UPCOMING ------------ */
+
+@media (min-width: 1200px)
+{
+  .coming-container {
+    max-width: 1140px;
+  }
+  
+}
+
+@media (min-width: 992px)
+{
+  .coming-container {
+    max-width: 960px;
+  } 
+  
+}
+
+
+
+@media (min-width: 576px)
+{
+  .coming-container {
+    max-width: 540px;
+  }
+} 
+@media (max-width: 470px) {
+  #content .sub-content p {
+    font-size: 14px;
+  }
+}

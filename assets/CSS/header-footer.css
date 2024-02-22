@@ -1,0 +1,294 @@
+/* Header */
+#header {
+    position: relative;
+    height: 30px;
+}
+.frame {
+    position: relative;
+}
+#login-container {
+    display: flex;
+    height: inherit;
+    position: absolute;
+    /* top: -2px; */
+    right: 30px;
+    align-items: center;
+    cursor: pointer;
+}
+.icon-user {
+    margin-bottom: 10px !important;
+}
+#login {
+    margin-left: 5px;
+    font-family: UTM-Aptima;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    /* font-weight: 600; */
+}
+#login-container:hover {
+    color: rgb(196, 196, 196);
+}
+.logout-container.open {
+    display: block;
+}
+.logout-container {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    z-index: 200;
+    background: var(--white-color);
+    font-family: UTM-Aptima;
+    padding: 10px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.history:hover,
+.logout:hover {
+    background: #eee;
+    border-radius: 5px;
+}
+.history,
+.logout {
+    height: 50px;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.icon-history,
+.icon-logout {
+    padding-right: 10px;
+}
+#history-text,
+#logout-text {
+    margin-bottom: 5px;
+}
+/* --------------------------navbar--------------------- */
+.navbar {
+    background: var(--black-color);
+    z-index: 100;
+    padding-top: 10px !important; 
+    padding-bottom: 10px !important;
+}
+.nav-item {
+    text-transform: uppercase;
+    padding: 0 10px;
+}
+.nav-item a {
+    color: #fff;
+    text-decoration: none;
+}
+.icon-drop {
+    padding-left: 5px;
+}
+/* thẻ a của thẻ li */
+.nav-item .nav-link {
+    padding-left: 20px;
+    transition: all 0.5s ease;
+    position: relative;
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+@media (min-width: 998px) {
+    .container {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 0;
+    }
+     
+    /* underline item */
+    .nav-item:hover .nav-link::after {
+        width: 100%; 
+    }
+    .nav-item .nav-link:after {
+        content:"";
+        position: absolute;
+        left: 5px;
+        bottom: -15px;
+        background: #e29c89;
+        width: 0;
+        height: 3px;
+        transition: 0.3s;
+    }
+    .nav-item .nav-link:hover:after {
+        width: 100%;
+    } 
+}
+@media (max-width: 998px) {
+    .container {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+    .navbar-nav {
+        padding-bottom: 10px;
+    }
+    .nav-item:hover .nav-link,
+    .subnav-item:hover{
+        color: #000 !important;
+        background: #e29c89;
+        border-radius: 5px;
+    }
+    .sub-ser, .sub-event {
+        margin-top: 10px;
+        margin-left: 40px;
+    }
+    .subnav-item {
+        color: #fff;
+    }
+}
+/* -------------------footer------------------- */
+#footer {
+    padding: 0 !important;
+}
+#footer .footer-content {
+    font-family: UTM-Aptima;
+    background: var(--black-color);
+    color: #fff;
+    max-width: 100%;
+    padding: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#footer .footer-container {
+    position: relative;
+}
+#footer #admin {
+    display: none;
+}
+#footer .follow-us {
+    display: inline-block;
+    width: 300px;
+    max-width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    padding-right: 30px;
+    line-height: 2.4;
+ 
+}
+#footer .follow-us h2 {
+    font-weight: 700;
+    font-size: 35px;
+}
+#footer .social-contact {
+    text-align: center;
+}
+#footer .follow-us .follow-us-social {
+    display: flex;
+    padding: 0 10px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#footer .follow-us .follow-us-social p {
+    margin: 0;
+    font-size: 20px;
+}
+#footer .icon-follow-us {
+    color: var(--color-pink);
+    font-size: 20px;
+}
+#footer .icon-follow-us:hover {
+    transform: translateY(-5px);
+    transition: all .5s;
+}
+#footer .infor-contact {
+    font-size: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    line-height: 2.4;
+    margin-bottom: 0;
+}
+#footer .infor-contact li {
+   list-style-type: none;
+}
+#footer .infor-contact li a {
+    text-decoration: none;
+    color: var(--background-color);
+}
+#footer .infor-contact li a:hover {
+    color: var(--color-pink);
+    text-decoration: underline;
+    transition: all .5s;
+    padding-left: 3px;
+}
+/* do 2 cái ko đồng đều nên phải tách nhỏ */
+#footer .icon-infor-contact1 {
+    padding-right: 14px;
+}
+#footer .icon-infor-contact {
+    padding-right: 10px;
+}
+
+/* Icon để kéo lên đầu trang */
+#scroll-head {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 0;
+    background-color: var(--color-pink);
+    box-shadow: 0 0 10px #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+}
+#scroll-head:hover {
+    color: #fff;
+}
+
+/* ---------------------responsive----------------- */
+@media (min-width: 1025px) {
+    #footer #admin {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: -30px;
+        color: aliceblue;
+        font-family: nexa;
+        transform: rotate(-90deg);
+        cursor: pointer;
+    }
+    #footer #admin:hover {
+        color: var(--color-pink);
+        transition: all .5s;
+    }
+}
+@media (max-width: 1024px) {
+    #footer .follow-us h2 {
+        font-size: 30px;
+    }
+    #footer .icon-follow-us {
+        padding-top: 10px;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    #footer .infor-contact {
+        font-size: 16px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+@media (max-width: 740px) { 
+    #footer {
+        display: block;
+        padding: 30px;
+    }
+    #footer .follow-us {
+        padding: 0;
+    }
+    #footer .infor-contact {
+        padding-top: 30px;
+    }
+    #footer .footer-content {
+        display: block;
+    }
+}

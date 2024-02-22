@@ -1,0 +1,80 @@
+#update-tab td {
+    padding: 5px;
+}
+.print-btn {
+    background: #FF1616;
+} 
+
+.mail-btn {
+    background: var(--color-blue);
+}
+
+/*-------------------gửi mail---------------------*/
+.modal-email {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center !important;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+.modal-email.open {
+    display: flex;
+}
+.popup-send-mail {
+    margin: 0px 20px;
+    width: 500px;
+    top: 0;
+    left: 0;
+    border-radius: 4px;
+}
+
+.popup-send-mail .mail-content{
+    height: 480px;
+    background: #fff;
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #ccc;
+} 
+
+.popup-send-mail .mail-content h4{
+    width: 100%;
+    padding: 10px 20px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: 1px solid #6c757d;
+    background-color: var(--color-blue);
+    color: #fff
+}
+
+.popup-send-mail .mail-infor {
+    margin: 25px;
+    display: flex;
+}
+
+.mail-infor input{
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-left: 30px;
+    padding-left: 10px;
+    resize: none;
+    font-size: 16px;
+    flex: 1;
+}
+.mail-infor label {
+    flex: 0.3;
+}
+.popup-send-mail textarea {
+    height: 200px;
+    width: 100%;
+    font-size: 16px;
+}
+.btn-save-form {
+    margin-right: 25px;
+}

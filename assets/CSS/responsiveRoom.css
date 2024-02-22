@@ -1,0 +1,141 @@
+@media (min-width: 1025px) {
+    #content {
+        padding-bottom: 100px;
+    }
+    .main-content {
+        padding: 50px 0 50px 50px;
+        
+    }
+    .slider-container {
+        height: 96vh;
+    }
+    #suggest .parent-suggest {
+        background: var(--background-color);
+    }
+}
+
+
+/* tablet */
+@media (max-width: 1024px)
+{
+    #content {
+        padding: 50px 0;
+    }
+    .main-content {
+        display: block;
+        margin: 0;
+        padding-top: 50px;
+        text-align: center;
+    }
+    #content .bd-example {
+        display: inline-block;
+        width: 80%;
+        padding: 0;
+    }
+    #content .img-room-single{
+        height: auto;
+    }
+    .infor-room-parent {
+        display: flex;
+        justify-content: center;
+    }
+    #content .infor-room {
+        margin: 0;
+        padding-top: 20px;
+        margin: 0 50px;
+    }
+    #content .title h2 {
+        font-size: 30px;
+    }
+    #content .title h3 {
+        font-size: 30px;
+    }
+    #content .description {
+        font-size: 16px;
+    }
+    #content .btn-booknow {
+        padding: 10px 20px;
+        font-size: 15px;
+    }   
+    #suggest .suggest-container{
+        display: flex;
+        justify-content: center;
+    }
+    #suggest .parent-suggest {
+        display: block;
+        margin: 10px 10px;
+    }
+    #suggest #group-suggest1 {
+        margin-right: 0;
+        margin-bottom: 50px;
+    }
+    #suggest .name-img2 .icon,
+#suggest .name-img1 .icon {
+    font-size: 10px;
+}
+#suggest .name-img2 h3,
+#suggest .name-img1 h3 {
+    font-size: 40px;
+}  
+    
+}
+
+/* mobile */
+@media (max-width: 740px) { 
+    #slider .content {
+        font-size: 15px;
+        bottom: 20px;
+    }
+    #slider .content h2 {
+        font-size: 25px;
+        margin-bottom: 16px;
+    }
+    #content .title h2 {
+        font-size: 20px;
+    }
+    #content .title h3 {
+        font-size: 20px;
+    }
+    #content .title1 {
+        width: fit-content;
+    }
+    #content .description {
+        font-size: 13px;
+    } 
+    #suggest .name-img2 .icon,
+    #suggest .name-img1 .icon {
+        margin-bottom: 10px;
+        font-size: 10px;
+        text-align: center;
+        color: rgb(255, 231, 51);
+    }
+    #suggest .name-img2 h3,
+    #suggest .name-img1 h3 {
+        font-family: uvn-bale;
+        font-weight: 600;
+        font-size: 30px;
+    }
+    #footer {
+        display: block;
+    }
+} 
+@media (max-width: 450px) {
+    #slider .content {
+        font-size: 8px;
+        bottom: 20px;
+    }
+    #slider .content h2 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+    #suggest .name-img2 .icon,
+    #suggest .name-img1 .icon {
+        padding-top: 5px;
+        font-size: 10px;
+    }
+    #suggest .name-img2 h3,
+    #suggest .name-img1 h3 {
+        font-size: 17px;
+        padding: 5px 20px;
+    }
+}
