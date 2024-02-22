@@ -1,0 +1,214 @@
+.modal-payment.open {
+    display: flex;
+}
+.modal-payment {
+    display: none;
+    /* display: flex; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    font-family: arimo;
+}
+
+.modal-payment-container {
+    width: 600px;
+    overflow-y: auto;
+    max-height: 90vh;
+    margin: 0px 20px;
+    min-height: 200px;
+    background: rgb(241, 239, 239);
+    border-radius: 20px;
+}
+.modal-header.payment{
+    position: relative;
+    background-color: var(--color-pink);
+    border-radius: 20px 20px 50px 0 !important;
+    overflow: hidden;
+    padding: 8px !important;
+}
+.modal-header span {
+    align-self: center;
+    padding-left: 20px;
+    font-size: 23px;
+    font-family: uvn-bale;
+    font-weight: 600;
+    color: var(--white-color);
+}
+.icon-close-modal {
+    font-size: 25px;
+    text-align: center;
+    color: var(--white-color);
+    width: 25px;
+    height: 26px;
+    margin-top: 2px;
+    margin-right: 10px;
+    border: 1px solid var(--white-color);
+    cursor: pointer;
+}
+.icon-close-modal:hover {
+    color: var(--color-pink);
+    background-color: var(--white-color) !important;
+}
+#cash-img,
+#bank-img,
+#momo-img {
+    width: 20px;
+    height: 20px;
+}
+.detail-payment-body {
+    margin: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    text-align: left;
+}
+.email-payment {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.total-payment {
+    display: flex;
+    color: #000;
+    font-family: arimo;
+    justify-content: right;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 30px 10px 30px;
+    padding-top: 5px;
+    border-top: 1px solid #000;
+}
+.detail-type-amount {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.type-room-payment {
+    flex: 1;
+}
+.amount-room-payment {
+    flex: 1;
+}
+.title {
+    font-weight: 600;
+    font-size: 15px;
+}
+.input-voucher-item {
+    -webkit-appearance: none;
+}
+.list-voucher {
+    display: inline-block;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    padding-right: 10px;
+    cursor: pointer;
+    height: 150px;
+    overflow: auto;
+}
+.voucher-item {
+    display: flex;
+}
+.label-voucher-item {
+    display: flex;
+    width: 450px;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #dbcbb4;
+    padding: 10px 30px 10px 10px;
+    cursor: pointer;
+    box-shadow: 3px 3px #ccc;
+}
+.icon-voucher {
+    margin-right: 5px;
+}
+@media (max-width: 470px) {
+    .detail-payment-body  {
+        margin: 0;
+        font-size: 12px;
+    }
+    .title {
+        font-size: 14px;
+    }
+    .email-payment {
+        font-size: 12px;
+    }
+    .total-payment {
+        font-size: 12px;
+    }
+    .list-voucher {
+        margin-left: 0;
+    }
+    .label-voucher-item {
+        font-size: 14px;
+        width: 260px;
+    }
+    .icon-check {
+        font-size: 15px;
+        margin-right: 10px !important;
+    }
+}
+.icon-check {
+    font-size: 20px;
+    color: var(--color-pink);
+    margin-right: 10px;
+    opacity: 0;
+}
+.icon-payment {
+    margin-right: 10px;
+}
+.voucher-item p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    font-family: arimo;
+}
+.input-voucher-item:checked + .label-voucher-item {
+    border: 3px solid var(--color-pink);
+}
+.input-voucher-item:checked + .label-voucher-item > .icon-check {
+    opacity: 1;
+}
+.group-button {
+    float: right;
+}
+
+.button-finish {
+    color:  var(--color-pink);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    background-color: #fff;
+    padding: 10px 15px;
+    border: 2px solid var(--color-pink);
+    outline: none !important;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+ 
+.button-finish:hover {
+    background-color: var(--color-pink);
+    color: #fff;
+    transition: all 0.5s ease-out;
+}
+.button-back {
+    color: rgb(178, 176, 176);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    background-color: #fff;
+    padding: 10px 15px;
+    border: 2px solid rgb(178, 176, 176);
+    outline: none !important;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.button-back:hover {
+    background-color: rgb(178, 176, 176);
+    color: #fff;
+    transition: all 0.5s ease-out;
+}

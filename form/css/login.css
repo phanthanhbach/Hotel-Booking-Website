@@ -1,0 +1,134 @@
+.modal-login.open {
+    display: flex;
+}
+.modal-login {
+    display: none;
+    /* display: flex; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+.modal-login-container {
+    display: flex;
+    position: relative;
+    width: 600px;
+    height: 350px;
+    max-height: 90vh;
+    margin: 0px 20px;
+    min-height: 200px;
+    background: rgb(241, 239, 239);
+    animation: dropdown ease 0.7s;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
+#icon-close-login {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+.img {
+    position: relative;
+    flex: 1;
+    background-image: linear-gradient(0, rgba(0,0,0, 0.3), rgba(0,0,0, 0.3)),
+    url(https://res2.weblium.site/res/5c065aa2fb5f790022ae66df/5c0a14b8cd8df7002331fe2d_optimized_1920?fbclid=IwAR0zHg-XixFzJ-vhZhh7LgZrzBaO6wCsJK52Sbo_OljUHvv-cWImz4HtXmc);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.login {
+    flex: 1;
+}
+.login-container {
+    height: 350px;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.welcome {
+    position: relative;
+    text-align: left;
+    padding: 10px;
+}
+.intro {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.suggestion {
+    width: 200px;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #000;
+
+}
+.stapler-icon {
+    position: absolute;
+    top: 70%;
+    left: 38%;
+    background: rgb(241, 239, 239);
+    padding: 0 15px;
+    font-size: 1.4rem;
+}
+.main {
+    text-align: center;
+}
+.btn-login {
+    display: inline-flex;
+    height: 40px;
+    border: none;
+    outline: none !important;
+    background: rgb(239, 1, 1);
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px 10px 5px 0;
+    cursor: pointer;
+}
+.img-icon {
+    display: flex;
+    background: #fff;
+    width: 40px;
+    height: inherit;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px
+}
+@font-face {
+    font-family: UTM-Aptima;
+    src: url(../../assets/fonts/font-text/UTM\ Aptima.ttf);
+}
+.text-login {
+    color: #fff;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    font-family: UTM-Aptima;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+@keyframes dropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

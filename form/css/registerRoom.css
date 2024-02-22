@@ -1,0 +1,112 @@
+.modal-register.open {
+    display: flex;
+}
+.modal-register {
+    display: none;
+    /* display: flex; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+.modal-register-container {
+    width: 600px;
+    /* overflow-y: hidden; */
+    max-height: 90vh;
+    margin: 0px 20px;
+    min-height: 200px;
+    background: rgb(241, 239, 239);
+    border-radius: 20px;
+    animation: dropdown ease 0.7s;
+}
+.modal-header.register{
+    position: relative;
+    background-color: var(--color-pink);
+    border-radius: 20px 20px 50px 0 !important;
+    overflow: hidden;
+    padding: 8px !important;
+}
+.modal-header span {
+    align-self: center;
+    padding-left: 20px;
+    font-size: 23px;
+    font-family: uvn-bale;
+    font-weight: 600;
+    color: var(--white-color);
+}
+.icon-close-modal {
+    font-size: 25px;
+    text-align: center;
+    width: 25px;
+    height: 26px;
+    margin-top: 2px;
+    margin-right: 10px;
+    color: var(--white-color);
+    border: 1px solid var(--white-color);
+    cursor: pointer;
+}
+.icon-close-modal:hover {
+    color: var(--color-pink);
+    background-color: var(--white-color) !important;
+}
+
+.modal-body .title {
+    margin-left: 20px;
+    font-family: arimo;
+    font-weight: 600;
+}
+
+.modal-body .infor-item {
+    display: flex;
+    margin-bottom: 10px;
+}
+.modal-body .infor-item label {
+    flex: 0.3;
+    font-size: 0.9rem;
+    font-family: play fair;
+    font-weight: 600;
+}
+.modal-body .infor-item select,
+.modal-body .infor-item input {
+    flex: 1;
+    font-size: small;
+    font-family: arimo;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--color-pink);
+    margin-bottom: 0;
+}
+.button-next-form {
+    color:  var(--color-pink);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    float: right;
+    background-color: #fff;
+    padding: 10px 15px;
+    border: 2px solid var(--color-pink);
+    outline: none !important;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.button-next-form:hover {
+    background-color: var(--color-pink);
+    color: #fff;
+    transition: all 0.5s ease-out;
+}
+
+@keyframes dropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
