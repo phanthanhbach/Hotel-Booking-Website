@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTD-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ALOHA</title>
+    <link rel="icon" href="./assets/img/logo/logo - Copy.png" />
+    <link rel="icon" href="../../assets/CSS/base.css" />
+    <link rel="stylesheet" href="../css/paymentRoom.css">
+    <link rel="stylesheet" href="../../assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="modal-payment">   
+        <div class="modal-payment-container">
+            <div class="modal-header payment">
+                <span>THANH TOÁN</span>
+                <div class="close-modal">
+                    <i id = "icon-close-payment" class="icon-close-modal fa-solid fa-xmark"></i>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="detail-payment">
+                    <p class="title">3. Chi tiết hóa đơn</p>
+                    <div class="detail-payment-body">
+
+                        <div class="detail-payment-client">
+                            <p class="fullname-payment">Nguyễn Văn A</p>
+                            <p class="phone-payment">0988111000</p>
+                            <p class="type-room-payment"></p>
+                        </div>
+                        
+                        <div class="detail-payment-room">
+                            <p class="checkin-payment">2022-12-09</p>
+                            <p class="checkout-payment">2022-12-10</p>
+                            <p class="amount-room-payment">2</p>
+                        </div>
+                    </div> 
+                    
+                    <p class="email-payment">a@gmail.com</p>
+                    <p class="total-payment">5000000</p>
+                </div>
+
+                <div class="voucher">
+                    <p class="title"> 4. Áp dụng voucher</p>
+                    <div class="list-voucher">           
+                        <div class="voucher-item">
+                            <input type="radio" id = "" class="input-voucher-item" checked name="radio-voucher">
+                            <label for="" class="label-voucher-item">
+                                <i class="icon-check fa-solid fa-circle-check"></i>
+                                <img src="../../assets/img/voucher-icon.png" alt="voucher-icon" class="icon-voucher">
+                                <p>GIAM20</p>
+                            </label>
+                        </div>
+                        
+                        <div class="voucher-item">
+                            <input type="radio" id = "" class="input-voucher-item" name="radio-voucher">
+                            <label for="" class="label-voucher-item">
+                                <i class="icon-check fa-solid fa-circle-check"></i>
+                                <img src="../../assets/img/voucher-icon.png" alt="voucher-icon" class="icon-voucher">
+                                <p>GIAM20</p>
+                            </label>
+                        </div>
+                        <div class="voucher-item">
+                            <input type="radio" id = "" class="input-voucher-item" name="radio-voucher">
+                            <label for="" class="label-voucher-item">
+                                <i class="icon-check fa-solid fa-circle-check"></i>
+                                <img src="../../assets/img/voucher-icon.png" alt="voucher-icon" class="icon-voucher">
+                                <p>GIAM20</p>
+                            </label>
+                        </div>
+                        <div class="voucher-item">
+                            <input type="radio" id = "" class="input-voucher-item" name="radio-voucher">
+                            <label for="" class="label-voucher-item">
+                                <i class="icon-check fa-solid fa-circle-check"></i>
+                                <img src="../../assets/img/voucher-icon.png" alt="voucher-icon" class="icon-voucher">
+                                <p>GIAM20</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div class="group-button">
+                    <button type ="button" class="btn-payment button-back">Quay lại</button>
+                    <button type="submit" name="submit_room" class="btn-payment button-finish">Hoàn tất</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/javascript/formRoomPayment.js"></script>
+</body>

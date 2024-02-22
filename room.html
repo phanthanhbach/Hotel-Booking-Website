@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTD-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ALOHA</title>
+    <link rel="icon" href="./assets/img/logo/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/CSS/base.css">
+    <link rel="stylesheet" href="./assets/CSS/room.css">
+    <link rel="stylesheet" href="./assets/CSS/responsiveRoom.css">
+    <link rel="stylesheet" href="./form/css/registerRoom.css">
+    <link rel="stylesheet" href="./form/css/paymentRoom.css">
+    <link rel="stylesheet" href="./form/css/login.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+     <!-- Jquery -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+     <!-- CSS header and footer -->
+    <link rel="stylesheet" href="./assets/CSS/header-footer.css">
+</head>
+<body>
+
+    <?php
+        include './assets/PHP/connectdb.php';
+        include './header.html';
+    ?>
+
+    <div id="slider">
+        <div class="slider-container">
+            <div class="overlay-video"></div>
+            <video autoplay loop muted plays-inline class="video-background">
+                <source src="./assets/video/video-room.mp4" type="video/mp4">
+            </video>
+            <div class="content">
+                <h2>ALOHA</h2>
+                <p>Luxury by the sea</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <?php
+        function vn_str_filter($str){
+            $unicode = array(
+                'a'=>'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ',
+                'd'=>'đ',
+                'e'=>'é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ',
+                'i'=>'í|ì|ỉ|ĩ|ị',
+                'o'=>'ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ',
+                'u'=>'ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự',
+                'y'=>'ý|ỳ|ỷ|ỹ|ỵ',
+                'A'=>'Á|À|Ả|Ã|Ạ|Ă|Ắ|Ặ|Ằ|Ẳ|Ẵ|Â|Ấ|Ầ|Ẩ|Ẫ|Ậ',
+                'D'=>'Đ',
+                'E'=>'É|È|Ẻ|Ẽ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ',
+                'I'=>'Í|Ì|Ỉ|Ĩ|Ị',
+                'O'=>'Ó|Ò|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ổ|Ỗ|Ộ|Ơ|Ớ|Ờ|Ở|Ỡ|Ợ',
+                'U'=>'Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
+                'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
+            );
+            
+           foreach($unicode as $nonUnicode=>$uni){
+                $str = preg_replace("/($uni)/i", $nonUnicode, $str);
+           }
+            return str_replace(' ', '', $str);
+        }
+            $get_data_roomtype = mysqli_query($conn, "SELECT * FROM roomtype ORDER BY RoomTypeName DESC");
+            while($roomtype_rows = $get_data_roomtype->fetch_assoc()) {
+                $arrImgs = explode(',', $roomtype_rows['RoomTypeImages']);
+                $arrDes = preg_split('/\,/',$roomtype_rows['RoomDescription']);
+                $id_roomtype = vn_str_filter($roomtype_rows['RoomTypeName']);
+
+        ?>
+
+        <div class="main-content">
+            <div class="bd-example">
+                <div id="<?php echo $id_roomtype?>" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#<?php echo $id_roomtype?>" data-slide-to="0" class="active"></li>
+                    <li data-target="#<?php echo $id_roomtype?>" data-slide-to="1"></li>
+                    <li data-target="#<?php echo $id_roomtype?>" data-slide-to="2"></li>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="./assets/img/room/<?php echo $arrImgs[0]?>" class="d-block w-100 img-room-single" alt="<?php echo $arrImgs[0]?>">
+                      <div class="carousel-caption d-none d-md-block">
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/img/room/<?php echo $arrImgs[1]?>" class="d-block w-100 img-room-single" alt="<?php echo $arrImgs[1]?>">
+                      <div class="carousel-caption d-none d-md-block">
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/img/room/<?php echo $arrImgs[2]?>" class="d-block w-100 img-room-single" alt="<?php echo $arrImgs[2]?>">
+                      <div class="carousel-caption d-none d-md-block">
+                      </div>
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#<?php echo $id_roomtype?>" role="button" data-slide="prev">
+                    <div class="container-prev-room">
+                        <span class="" aria-hidden="true"><i class="ti-angle-left icon-transfer"></i></span>
+                    </div>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#<?php echo $id_roomtype?>" role="button" data-slide="next">
+                    <div class="container-next-room">
+                        <span class="" aria-hidden="true"><i class="ti-angle-right icon-transfer"></i></span>
+                    </div>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>    
+            </div>
+            
+            <div class="infor-room-parent">
+              <div class="infor-room">
+                  <div class="group-title">
+                      <div class="title">
+                          <i class="fa-solid fa-user"></i>
+                          <h2><?php echo $roomtype_rows['RoomTypeName']?></h2>
+                      </div>
+                      <div class="title title1">
+                          <i class="fa-solid fa-hotel"></i>
+                          <h3><?php echo number_format((int)$roomtype_rows['RoomTypePrice'] , 0, ',', '.') . "/phòng/đêm" ?></h3>
+                      </div>
+                  </div>
+                  <ul class = "description">
+                    Mô tả
+                    <?php
+                        for ($i = 1; $i < count($arrDes); $i++) {
+                            echo '<li>'.$arrDes[$i].'</li>';
+                        }
+                    ?>
+                      <p class ="size">Kích thước</p> 
+                      <p><?php echo $roomtype_rows['RoomTypeSize']. "m^2"?></p>
+                  </ul>
+                  <button id="<?php echo $roomtype_rows['RoomTypeName'] ?>" class ="btn-booknow">Đặt ngay</button>
+              </div>
+            </div>
+        </div> 
+        
+        <?php } ?>
+
+    </div>
+
+    <?php
+        include './footer.html';
+    ?>
+
+    <!-- form đặt phòng -->
+    <form class = "form-group" action="./assets/PHP/booking_room.php" method="post" style="display: none; margin-bottom: 0;">
+        <div class="modal-register">
+            <div class="modal-register-container">
+                <div class="modal-header register">
+                    <span>ĐĂNG KÝ PHÒNG</span>
+                    <div class="close-modal">
+                        <i id = "icon-close-register" class="icon-close-modal fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            
+                <div class="modal-body">
+                    <div class="infor-client">
+                        <p class="title">1. Thông tin khách hàng</p>
+                        <div class="infor-item">
+                            <label>Họ tên:</label>
+                            <input type="text" id="fullname-register" name="fullname"  placeholder="Nhập họ tên" class="input-form client">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Số điện thoại:</label>
+                            <input type="text" id="phone-register" name="phone" placeholder="Nhập số điện thoại" class="input-form client">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Email:</label>
+                            <input type="text" id="email-register" name="email" placeholder="Nhập email" class="input-form client">
+                        </div>
+                    </div>
+                    <div class="infor-room">
+                        <p class="title">2. Thông tin phòng</p>
+                        <div class="infor-item">
+                            <label for="checkin">Ngày ở:</label> 
+                            <input id="checkin-day-register" type="date" name="checkin" class="input-form">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label for="checkout">Ngày trả:</label>
+                            <input id="checkout-day-register" type="date" name="checkout" class="input-form">
+                            <br>                                 
+                        </div>
+                        <div class="infor-item">
+                            <label>Loại phòng:</label>
+                            <select id ="type-room-register" class="input-form" name="type-room-register">
+                                <option></option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Số lượng phòng:</label>
+                            <input type="number" id="number-room-register" name="number-room" placeholder="Nhập số lượng" class="input-form" value = 1  min="1" max="5">
+                            <br>
+                        </div>
+                        
+                        <div class="infor-item">
+                            <label>Giá tiền/phòng:</label>
+                            <input type="text" id="price" name="price" disabled class="input-form">
+                        </div>
+                    </div>
+                    
+                    <button type ="button" class="button-next-form"onclick="openFormPayment()">Tiếp theo</button>
+                </div>
+            </div>           
+        </div>
+        <div class="modal-payment">   
+            <div class="modal-payment-container">
+                <div class="modal-header payment">
+                    <span>THANH TOÁN</span>
+                    <div class="close-modal">
+                        <i id = "icon-close-payment" class="icon-close-modal fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+    
+                <div class="modal-body">
+                    <div class="detail-payment">
+                        <p class="title">3. Chi tiết hóa đơn</p>
+                        <div class="detail-payment-body">
+    
+                            <div class="detail-payment-client">
+                                <p class="fullname-payment"></p>
+                                <p class="phone-payment"></p>
+                                <p class="type-room-payment"></p>
+                            </div>
+                            
+                            <div class="detail-payment-room">
+                                <p class="checkin-payment"></p>
+                                <p class="checkout-payment"></p>
+                                <p class="amount-room-payment"></p>
+                            </div>
+                        </div> 
+                        
+                        <p class="email-payment"></p>
+                        <p class="total-payment"></p>
+                    </div>
+    
+                    <div class="method-payment">
+                        <p class="title title-method"> 4. Phương thức thanh toán</p>
+                        <div class="method-container">
+                            <div class="method-item">
+                                <input type="radio" name="payment" id = "cash" class="input-method-item" checked>
+                                <label for="cash" class="label-method-item">
+                                    <i class="icon-check fa-solid fa-circle-check"></i>
+                                    <img src="./assets/img/cash-icon.png" alt="" id ="cash-img" class="icon-payment">
+                                    <p>Tiền mặt</p>
+                                </label>
+    
+                            </div>
+                            <div class="method-item">
+                                <input type="radio" name="payment" id = "momo" class="input-method-item">
+                                <label for="momo" class="label-method-item">
+                                    <i class="icon-check fa-solid fa-circle-check"></i>
+                                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="MoMo_Logo" id="momo-img" class="icon-payment">
+                                    <p>Momo</p>
+                                </label>
+                            </div>
+                            <div class="method-item" class="label-method-item">
+                                <input type="radio" name="payment" id = "bank" class="input-method-item">
+                                <label for="bank" class="label-method-item">
+                                    <i class="icon-check fa-solid fa-circle-check"></i>
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3029/3029373.png" alt="" class="icon-payment" id="bank-img">
+                                    <p>Chuyển khoản</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="group-button">
+                        <button type ="button" class="btn-payment button-back">Quay lại</button>
+                        <button type="submit" name="submit_room" class="btn-payment button-finish">Hoàn tất</button>
+                    </div>
+                    <!-- hiện đơn đặt phòng -->
+                    <script src="./assets/javascript/formReservation1.js">                   
+                    </script>
+                    
+                    <script type="module">
+                        var DataTypeRoom = JSON.parse('<?= load_data_typerom(); ?>'); // kdl: object 
+                        var type_room_selected = $('#type-room-register').find(":selected").text();
+
+                        function setPrice(obj) {
+                            let type_room_selected = $('#type-room-register').find(":selected").text();
+                            for (let i = 0; i < obj.length; i++) {
+                                if((obj[i].name).localeCompare(type_room_selected) == 0) {
+                                    return obj[i].price;
+                                    // break;
+                                }
+
+                            }
+                        }
+                        $('.btn-booknow').click(function() {
+                            $('#price').val(setPrice(DataTypeRoom));
+                        })          
+                     
+                        var countDay;
+                        function calculateDate() { 
+                            const startDate  = $('#checkin-day-register').val();
+                            const endDate    = $('#checkout-day-register').val();
+
+                            const diffInMs   = new Date(endDate) - new Date(startDate)
+                            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+                            countDay = Math.floor(diffInDays);
+                            return countDay;
+                        }
+
+                        $(".button-next-form").click(function(){
+                            var countday = calculateDate();
+                            $('.total-payment').text("Tổng cộng: " + setPrice(DataTypeRoom) * parseInt($('#number-room-register').val()) * countday + " VND");
+                        });
+                        
+                    </script>
+                    <?php
+                        function load_data_typerom() {
+                            include './assets/PHP/connectdb.php';
+                            $arr = array();
+                            $typerom_rows =  $conn->query("select * from roomtype");
+                            
+                            while($get_data_roomtype = $typerom_rows->fetch_assoc()) {
+                            // array_push($arr,$get_data_roomtype["RoomTypeName"]);
+                            array_push($arr, (object)[
+                                'name' => $get_data_roomtype["RoomTypeName"],
+                                'price' => $get_data_roomtype["RoomTypePrice"],
+                                ]);
+                            }
+                            
+                            return (json_encode($arr,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));         
+                        }
+                    ?>
+                </div>
+            </div>
+    
+        </div>
+    </form>
+
+    <!-- ĐĂNG NHẬP ĐỂ VÀO TRANG QUẢN LÝ -->
+    <?php
+        function get_password() {
+            include './assets/PHP/connectdb.php';
+            $password =  $conn->query("select * from user")->fetch_assoc()["password"];
+            return (json_encode($password,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+        }
+    ?>
+    <script lang="javascript">
+        $('#btn-openadmin').click(function() {
+            var pass = JSON.parse('<?= get_password(); ?>');
+            if (($('#password').val()).localeCompare(pass) == 0) {
+                window.location='admin-manage.html';
+            }
+            else {
+                alert('Sai mật khẩu!');
+            }
+        })
+    </script>
+
+    <!-- set color nav + event scroll window -->
+    <script>
+        var nav = document.querySelector('.navbar');
+        var scrollIcon = document.getElementById("scroll-head");
+        // set màu khi mới vào trang
+        if(window.matchMedia('(min-width: 998px)').matches) {
+            nav.style.backgroundColor = "transparent";
+        }
+        window.onscroll = function() {
+        if (document.documentElement.scrollTop > 1600)
+        {
+            scrollIcon.style.opacity= "1";
+        } else {
+            scrollIcon.style.opacity= "0";
+        }
+        if (window.pageYOffset >= document.getElementById("header").clientHeight) {
+            nav.classList.add("sticky")
+        } else {
+            nav.classList.remove("sticky");
+        }
+        if (window.pageYOffset >= document.querySelector('.slider-container').clientHeight - 100) {
+            nav.style.backgroundColor = "#191514";
+        }
+        else {
+            if(window.matchMedia('(min-width: 1025px)').matches) {
+                nav.style.backgroundColor = "transparent";
+            }
+        }
+    };
+    scrollIcon.onclick = function() {
+        scrollTo(0,0);
+    }
+      
+    </script>
+    <!-- bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>

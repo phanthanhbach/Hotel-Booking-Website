@@ -1,0 +1,836 @@
+<?php 
+    if(isset($_GET['error'])) {
+        if($_GET['error'] === '0') {
+            echo '<script>
+                alert("Chỉ khi đã từng ở khách sạn bạn mới có quyền đánh giá!");
+                window.location.href = "http://localhost:8080/aloha/home.html";
+                </script>';
+        } 
+        else {
+            echo '<script>
+                alert("Mỗi khách hàng chỉ được đánh giá tối đa 3 lần!");
+                window.location.href = "http://localhost:8080/aloha/home.html";
+                </script>';
+        }
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTD-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ALOHA</title>
+    <link rel="icon" href="./assets/img/logo/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/CSS/base.css">
+    <link rel="stylesheet" href="./assets/CSS/home.css">
+    <link rel="stylesheet" href="./form/css/login.css">
+    <link rel="stylesheet" href="./assets/CSS/responsiveHome.css">
+    <link rel="stylesheet" href="./form/css/registerRoom.css">
+    <link rel="stylesheet" href="./form/css/paymentRoom.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Arimo&family=Playfair+Display&display=swap" rel="stylesheet">
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- CSS header and footer -->
+    <link rel="stylesheet" href="./assets/CSS/header-footer.css">
+</head>
+
+<body>
+    <script>
+        function initMap() {
+            // your code
+        }
+    </script>
+
+    
+    <?php
+        include './header.html';
+    ?>
+    <div id="overlay"></div>
+
+    <!--Image slide -->
+    <div id="slider">
+        <div class="slider-container">
+            <video autoplay loop muted plays-inline class="video-background">
+                <source src="./assets/video/HOME.mp4" type="video/mp4">
+            </video>
+            <!-- book calendar -->
+            <section class="search">
+                <div class="container">
+                    <div action="" class="form grid">
+                        <div class="input-group">
+                            <label for="check-in" class="input-label">Ngày ở</label>
+                            <input type="date" class="input" id="check-in"/>
+                        </div>
+                        <div class="input-group">
+                            <label for="check-out" class="input-label">Ngày trả</label>
+                            <input type="date" class="input" id="check-out" onblur="compareDate()"/>
+                        </div>
+                        <div class="input-group">
+                            <label for="adults" class="input-label">Người lớn</label>
+                            <input id="adults" type="number" class="input" name="adults" min="0" max="4" placeholder="Nhập số lượng"/>
+                        </div>
+                        <div class="input-group">
+                            <label for="kids" class="input-label">Trẻ em</label>
+                            <input id = "kids" type="number" class="input" name="kids" min="0" max="4" placeholder="Nhập số lượng"/>
+                        </div>
+                    </div>
+                    <button class="btn-search" onclick="OpenForm()">Đặt ngay</button>
+                </div>
+            </section>
+        </div>
+       
+    </div>
+
+    <!-- content -->
+    <div id="content">
+        <div class="about-us">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 text-intro">
+                        <div class="about-text">
+                            <div class="about-title">
+                                <span>About us</span>
+                                <h2>Welcome to
+                                    <br>Aloha Hotel
+                                </h2>
+                            </div>
+                            <p>Nơi lưu giữ những khoảnh khắc tuyệt vời trong những kỳ nghỉ của bạn. 
+                                Chúng tôi rất hân hạnh khi mang đến những trải nghiệm tuyệt vời nhất mỗi khi tìm đến đây. </p>
+                            <p>Khi tới ALOHA, mọi ưu phiền sẽ được loại bỏ, bạn sẽ được hòa mình vào 
+                                bầu không khí của biển cả, đón những cơn gió biển tràn đầy sức sống. 
+                                Bên cạnh đó là những dịch vụ, tiện ích tuyệt vời mà chúng tôi đang chờ 
+                                bạn khám phá.</p>
+                            <p class="thank">THANKYOU</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="about-pic">
+                            <div class="row">
+                                <div class="col-sm-6" id="img-intro1">
+                                    <img src="./assets/img/home/about_us1.png" alt="img-intro1">
+                                </div>
+                                <div class="col-sm-6" id="img-intro2">
+                                    <img src="./assets/img/home/about_us2.jpg" alt="img-intro2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="our-service">
+            <div class="container-intro">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="service-title">
+                            <span>WHAT WE DO</span>
+                            <h2>Discover Our Service</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <h4>Fitness</h4>
+                            <!-- <p>Không gian phòng tập đjep, thoáng mắt và hiện đại,
+                                thiết bị tập chuyên nghiệp nhập khẩu 100%
+                            </p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-shirt"></i>
+                            <h4>Giặt ủi</h4>
+                            <!-- <p>Quần áo được phân loại và giặt riêng biệt theo chất liệu,
+                                 màu vải, loại quần áo, đảm bảo áo quần của cả bạn 
+                                luôn ở trạng thái tốt nhất.</p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-martini-glass-citrus"></i>
+                            <h4>Bar & Karaoke</h4>
+                            <!-- <p>Với thiết kế kín đáo đem lại cho khách hàng cảm giác 
+                                thư giãn và đắm chìm trong 
+                                không gian bí ẩn thưởng thức âm nhạc và rượu cay.</p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-sailboat"></i>
+                            <h4>Du thuyền</h4>
+                            <!-- <p>Thiết kế dành riêng cho thị trường Chu Á, sẽ mang lại cho du 
+                                khách những dịch vụ sang trọng và chu đáo nhất trong khu vực.</p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-mug-hot"></i>
+                            <h4>Beach Coffee</h4>
+                            <!-- <p>Có thể thưởng thức hương vị tinh tế và hương thơm của tách cafe
+                                 bên cạnh cảnh biển tuyệt đẹp </p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-golf-ball-tee"></i>
+                            <h4>Golf</h4>
+                            <!-- <p>Toàn bộ sân gôn được trang bị hàng loạt hệ thống tưới 
+                                tiêu hiện đại, giúp duy trì những thảm cở xanh tươi, 
+                                 mướt mát quanh năm.
+                            </p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-paw"></i>
+                            <h4>Thú cưng</h4>
+                            <!-- <p>Có kiến thức, kỹ năng chăm sóc chuyên nghiệp, nhằm 
+                                giúp bạn chăm sóc thú cưng của mình một cách tốt nhất.</p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <h4>24/7</h4>
+                            <!-- <p>Dịch vụ phòng của khách sạn luôn sẵn lòng phục vụ khách 
+                                hàng trong 24/7</p> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="service-item">
+                            <i class="fa-solid fa-spa"></i>
+                            <h4>Spa</h4>
+                            <!-- <p>Nơi giúo bạn tìm lại sự thư thái cho cơ thể và tinh thần với 
+                                nhiều dịch vụ chăm sóc da, massage,...</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+          
+        <div class="room-event">
+            <div class="single left-img">
+                <div class="container-context">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="caption room-caption">
+                                <h3>ROOM</h3>
+                                <p>ALOHA luôn mang đến trải nghiệm tuyệt vời đối với giấc ngủ. Chúng tôi đảm bảo ALOHA sẽ là nơi lý tưởng để khách hàng có thể nghỉ ngơi thoải mái nhất trong những kỳ nghỉ của bạn. 
+                                    <br> ALOHA luôn trang bị đầy đủ các thiết bị và vật dụng hiện đại, tân tiến nhất cho phòng ốc, đảm bảo tuyệt đối về sự tiện nghi.</p>
+                                <button type="button" onclick="location.href='room.html';" class="showmore-btn" >Xem thêm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single right-img">
+                <div class="container-context">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="caption event-caption text-right">
+                                <h3>EVENT</h3>
+                                <p>ALOHA cung cấp một loạt các không gian sự kiện để đáp ứng mọi nhu cầu của bạn, cho dù bạn đang tổ chức một bữa tiệc xa hoa, hội thảo kinh doanh chính thức, tiệc cocktail thân mật hay tiệc cưới. Mỗi sự kiện được quản lý chuyên nghiệp bởi đội ngũ chuyên gia giàu kinh nghiệm và tận tâm của chúng tôi để đảm bảo hoạt động trơn tru và thành công.</p>
+                                <button type="button" onclick="location.href='event.html';" class="showmore-btn" >Xem thêm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="preview-half">
+        <img src="./assets/img/home/banner2.png" alt="" class="image">
+        <div class="text">
+            <div class="container-text">
+                <h2>ENJOY</h2>
+                <p>Cùng ALOHA tận hưởng những kì nghỉ tuyệt vời bên người thân và bạn bè.
+                    Hè này hãy chọn ALOHA, ALOHA đang có chương trình ưu đãi cực kì hấp dẫn luôn.</p>
+                <p>Cảm ơn quý khách đã luôn tin tưởng chúng tôi.</p>
+            </div>
+        </div>
+    </div>
+        <!-- review -->
+    <div id="review">
+        <div class="review-container">
+            <section class="pt-5 pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="feedback-title">
+                                <span>FEEDBACK</span>
+                                <h3 class="mb-3 title-review">NGƯỜI NỔI TIẾNG</h3>
+                            </div>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                                <i class="fa fa-arrow-left"></i>
+                            </a>
+                            <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="col-12 main">
+                            <div id="carouselExampleIndicators2" class="carousel slide home" data-ride="">
+                                <div id="carousel-inner-review" class="carousel-inner home">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+            
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <div class="color-behind"></div>
+                                                    <img class="img-fluid" alt="100%x280" src="https://nld.mediacdn.vn/291774122806476800/2021/11/7/hoa-hau-tieu-vy-21-16362488390641936908568.jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Tiểu Vy</h4>
+                                                        <p class="card-text">Chu đáo, set up phòng tốt, sạch sẽ, thoáng mát và đủ trang thiết bị nội thất. Đồ ăn vừa miệng, món ăn đa dạng và bắt mắt.</p>
+            
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://ss-images.saostar.vn/2020/03/01/7079543/page.jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Quỳnh Lương</h4>
+                                                        <p class="card-text">Phòng đẹp với khung cảnh sân vườn, hồ bơi riêng và view toàn cảnh ra biển ấn tượng. Đặc biệt nhất là quầy bar về đêm.</p>
+            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://nld.mediacdn.vn/2018/7/8/hat-6-15310139568281582745769.jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Hà Anh Tuấn</h4>
+                                                        <p class="card-text">ALOHA luôn giữ vững phong độ của mình. Tôi rất thích các món ăn ở đây, ăn sáng buffet rất ngon với nhiều món ăn phong phú.</p>
+            
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row">
+            
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://static2.yan.vn/YanNews/2167221/201908/10-bi-mat-bat-ngo-ve-my-nhan-baifern-pimchanok-5d393d8c.jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Baifern Pimchanok </h4>
+                                                        <p class="card-text">Thoughtful, clean, airy and fully furnished room. Delicious food, diverse and eye-catching dishes.</p>
+            
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://evan.vn/public/news-img-content-public/tieuthanh/images/1a(27).jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Yaya Urassaya</h4>
+                                                        <p class="card-text">The hotel is convenient for walking to the beach. Facilities, the price is very reasonable.</p>
+            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://photo-cms-anninhthudo.zadn.vn/w600/Uploaded/2022/lcjlcanwm/2020_12_15/mai-davika-8-625-5212.jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Mai Davika</h4>
+                                                        <p class="card-text">Central location, nice, clean, fully equipped room, feels like I'm at home. Extremely attentive and attentive staff.</p>
+            
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row">
+            
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://64.media.tumblr.com/5657125fa045d5fc4e2a09f9c9c9e090/3ce744540e944f94-f9/s1280x1920/f248371be764afdca32cd1d39bb1f447f695f85f.jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Talay Sanguandikul</h4>
+                                                        <p class="card-text">All are too professional, the rooms are extremely clean and make me and my friends very satisfied.</p>
+            
+                                                    </div>
+            
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://i.pinimg.com/736x/96/d9/9b/96d99b7d1ebe5df84351e788d2ecee11.jpg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Vachirawit Chivaaree</h4>
+                                                        <p class="card-text">This is one of those hotels with great location, affordable price and best staff behavior.</p>
+            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <img class="img-fluid" alt="100%x280" src="https://static2.yan.vn/YanNews/202102/202102020407311232-ba3aa65e-2344-444f-ac41-a70756d0693e.jpeg">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Nadech Kugimiya</h4>
+                                                        <p class="card-text">Great location, has everything I need. Clean room, delicious and cheap food. The sea and nature are very beautiful.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h3 class="mb-3 title-review" style="margin-top: 50px;">Cảm nhận chân thực từ khách hàng</h3>
+                </div>
+            </section>
+        </div>
+
+        <div class="review-cus">
+            <form action="./assets/PHP/comment.php" method="post" id="rating-form">
+                <div class="review-cus-container">
+                    <div class="star-widget">
+                        <input type="radio" name="rate" id="rate-5" checked value="5">
+                        <label for="rate-5" class="fa-solid fa-star"></label>
+                        <input type="radio" name="rate" id="rate-4" value="4">
+                        <label for="rate-4" class="fa-solid fa-star"></label>
+                        <input type="radio" name="rate" id="rate-3" value="3">
+                        <label for="rate-3" class="fa-solid fa-star"></label>
+                        <input type="radio" name="rate" id="rate-2" value="2">
+                        <label for="rate-2" class="fa-solid fa-star"></label>
+                        <input type="radio" name="rate" id="rate-1" value="1">
+                        <label for="rate-1" class="fa-solid fa-star"></label>
+                        <br>
+                        <br>
+                        <header id="main-review"></header>
+                    </div>
+                    <div class="detail-review">
+                        <textarea id="text-review" cols="30" placeholder="Viết chi tiết đánh giá" name="text-review"></textarea>
+                    </div>
+                    <div class="btn-sendreview">
+                        <button id="send-review" name="send-review" type="submit">Gửi đánh giá</button>
+                    </div>
+                </div>
+            </form>
+            <div class="reviewers">
+                <?php
+                include './assets/PHP/connectdb.php';
+                $get_cmts = mysqli_query($conn, "SELECT * FROM comment");
+                while($cmt_rows = $get_cmts->fetch_assoc())
+                    {
+                ?>
+                <div class="comments">
+                    <header>
+                        <div class="frame-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <p class="username"><?php echo $cmt_rows['UserName'] ?></p>
+                        <i class="fa fa-quote-right quote-icon"></i>
+                    </header>
+                    <p class="rating">
+                        <?php
+                            switch($cmt_rows['Score']) {
+                                case 1: echo "1/5 - Mọi thứ rất tệ ☹️";
+                                break;
+                                case 2: echo "2/5 - Thái độ phục vụ tệ 😕";
+                                break;
+                                case 3: echo "3/5 - Mọi thứ đều ổn 😐";
+                                break;
+                                case 4: echo "4/5 - Phòng tốt, giá tốt 🥰";
+                                break;
+                                default: echo "5/5 - Mọi thứ trên cả tuyệt vời 🤩";
+                            }
+                        ?>
+                    </p>
+                    <p class="allocution"><?php echo $cmt_rows['Text']; ?></p>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Map -->
+    <div id="location">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15700.192431763902!2d107.0903782!3d10.3380353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2fe4a1e2d861bd36!2sAloha%20hotel!5e0!3m2!1svi!2s!4v1659149196377!5m2!1svi!2s" width="80%" height="500" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <!-- footer -->
+    <?php
+        include './footer.html';
+    ?>
+    
+    <!-- form đặt phòng -->
+    <form class = "form-group" action="./assets/PHP/booking_room.php" method="post" style="display: none; margin-bottom: 0;">
+        <div class="modal-register">
+            <div class="modal-register-container">
+                <div class="modal-header register">
+                    <span>ĐĂNG KÝ PHÒNG</span>
+                    <div class="close-modal">
+                        <i id = "icon-close-register" class="icon-close-modal fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            
+                <div class="modal-body">
+                    <div class="infor-client">
+                        <p class="title">1. Thông tin khách hàng</p>
+                        <div class="infor-item">
+                            <label>Họ tên:</label>
+                            <input type="text" id="fullname-register" name="fullname"  placeholder="Nhập họ tên" class="input-form client">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Số điện thoại:</label>
+                            <input type="text" id="phone-register" name="phone" placeholder="Nhập số điện thoại" class="input-form client">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Email:</label>
+                            <input type="text" id="email-register" name="email" placeholder="Nhập email" class="input-form client">
+                        </div>
+                    </div>
+                    
+                    <div class="infor-room">
+                        <p class="title">2. Thông tin phòng</p>
+                        <div class="infor-item">
+                            <label for="checkin">Ngày ở:</label>
+                            <input id="checkin-day-register" type="date" name="checkin" class="input-form">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label for="checkout">Ngày trả:</label>
+                            <input id="checkout-day-register" type="date" name="checkout" class="input-form">
+                            <br>                                 
+                        </div>
+                        <div class="infor-item">
+                            <label>Loại phòng:</label>
+                            <select id ="type-room-register" class="input-form" name="type-room-register">
+                                <option></option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Số lượng phòng:</label>
+                            <input type="number" id="number-room-register" name="number-room" placeholder="Nhập số lượng" class="input-form" value = 1  min="1" max="5">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Số khách/phòng:</label>
+                            <input type="text" id="people" name="people" disabled class="input-form">
+                            <br>
+                        </div>
+                        <div class="infor-item">
+                            <label>Giá tiền/phòng:</label>
+                            <input type="text" id="price" name="price" disabled class="input-form">
+                        </div>
+                    </div>
+                    
+                    <button type ="button" class="button-next-form"onclick="openFormPayment()">Tiếp theo</button>
+                </div>
+            </div>           
+        </div>
+        <div class="modal-payment">   
+            <div class="modal-payment-container">
+                <div class="modal-header payment">
+                    <span>THANH TOÁN</span>
+                    <div class="close-modal">
+                        <i id = "icon-close-payment" class="icon-close-modal fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+    
+                <div class="modal-body">
+                    <div class="detail-payment">
+                        <p class="title">3. Chi tiết hóa đơn</p>
+                        <div class="detail-payment-body">
+    
+                            <div class="detail-payment-client">
+                                <p class="fullname-payment"></p>
+                                <p class="phone-payment"></p>
+                                <p class="email-payment"></p>
+                            </div>
+                            
+                            <div class="detail-payment-room">
+                                <p class="checkin-payment"></p>
+                                <p class="checkout-payment"></p>
+                                <p class="type-room-payment"></p>
+                                <p class="amount-room-payment"></p>
+                            </div>
+                        </div> 
+                        
+                        <p class="total-payment"></p>
+                    </div>
+    
+                    <div class="voucher">
+                        <p class="title"> 4. Áp dụng voucher</p>
+                        <div class="list-voucher">     
+                            <?php
+                                $data = mysqli_query($conn,"SELECT VoucherCode, Percent, VoucherNote, MinPrice, Quantity, QuantityUsed FROM voucher WHERE Status = 1 ORDER BY Percent ASC");
+                            
+                                while($row = $data->fetch_assoc()) {
+                                    $a = $row['Quantity']; $b = $row['QuantityUsed'];
+                                    if ((int)$b < (int)$a) {
+                            ?>
+                            <div class="voucher-item">
+                                <input type="radio" id = "<?php echo $row['VoucherCode'] ?>" class="input-voucher-item" name="radio-voucher" value="<?php echo $row['VoucherCode'] ?>" onchange="ChooseVoucher(this)">
+                                <label for="<?php echo $row['VoucherCode'] ?>" class="label-voucher-item">
+                                    <i class="icon-check fa-solid fa-circle-check"></i>
+                                    <img src="./assets/img/voucher-icon.png" alt="voucher-icon" class="icon-voucher">
+                                    <p><?php echo $row['VoucherCode'] . " (Giảm giá " . $row['Percent'] . "% cho đơn từ " . number_format((int)$row['MinPrice'], 0, ',', '.') ."VND)"?></p>
+                                </label>
+                            </div>                
+                            <?php }} ?>
+                        </div>
+                    </div>
+                        
+                    <div class="group-button">
+                        <button type ="button" class="btn-payment button-back">Quay lại</button>
+                        <button type="submit" name="submit_room" class="btn-payment button-finish">Hoàn tất</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!------------HIỆN ĐƠN ĐẶT PHÒNG ---------------------------------->
+    <script src="./assets/javascript/formReservation.js">                    
+    </script>
+    
+    <!--------------HÀM SET COOKIE HẾT HẠN TRONG N GIÂY---------------->
+    <script>
+    function createCookie(name, value, second) {
+        var date = new Date();
+        date.setTime(date.getTime()+(second*1000));
+        var expires = "; expires="+date.toGMTString();
+        document.cookie = name+"="+value+expires+"; path=/";
+    }
+    </script>
+
+    <!-- ----- SET TẤT CẢ CÁC RÀNG BUỘC LIÊN QUAN TỚI FORM ĐẶT PHÒNG------------------- -->
+    <script>
+        var DataTypeRoom = JSON.parse('<?= load_data_typerom(); ?>'); 
+        var DataVoucher = JSON.parse('<?= load_voucher(); ?>'); // kdl: object 
+        
+        // set giá khi bấm select chọn loại phòng trong form
+        function setPrice(obj) {
+            let type_room_selected = $('#type-room-register').find(":selected").text();
+            for (let i = 0; i < obj.length; i++) {
+                if((obj[i].name) === type_room_selected) {
+                    return obj[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                }
+            }
+        }
+        $('.btn-search').click(function() {
+            $('#price').val(setPrice(DataTypeRoom));
+        })          
+        $('#type-room-register').change(function() {
+            $('#price').val(setPrice(DataTypeRoom));                            
+        });
+        var countDay;
+        function calculateDate() { 
+            const startDate  = $('#checkin-day-register').val();
+            const endDate    = $('#checkout-day-register').val();
+
+            const diffInMs   = new Date(endDate) - new Date(startDate)
+            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+            countDay = Math.floor(diffInDays);
+            return countDay;
+        }
+
+        // set tổng tiền khi qua form thanh toán
+        let price, total; // lưu giá tiền origin
+        $(".button-next-form").click(function(){
+            var countday = calculateDate();
+            price = setPrice(DataTypeRoom).split('.').join("") * parseInt($('#number-room-register').val()) * countday;
+            total = price;
+            price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            $('.total-payment').text("Tổng cộng: " + price + " VND");
+        });
+
+        // update giá khi chọn voucher
+        function updateDiscount(obj, type) {
+            let code = document.querySelector('input[name="radio-voucher"]:checked').value;
+            for(let i = 0; i < obj.length; i++) {
+                if((obj[i].code) === code) {
+                    if (type === "percent") {
+                        return obj[i].percent;
+                    } 
+                    else if (type === "minprice") {
+                        return obj[i].minprice;
+                    } 
+                }
+            } 
+        }
+
+        // set điều kiện khi chọn voucher
+        isChecked = '0';
+        function ChooseVoucher(input) {
+            if (getCookie("flagLogin") === "0") {
+                isChecked = '0';
+                input.checked = false;
+                modal.classList.add('open'); 
+            } 
+            else {
+                minprice = parseInt(updateDiscount(DataVoucher, "minprice"));
+                percent = parseInt(updateDiscount(DataVoucher, "percent"))/100;
+                if (parseInt(price.split('.').join("")) >= minprice) {
+                    isChecked = '1';
+                    total = parseInt(price.split('.').join(""))*(1-percent);
+                    document.querySelector('.total-payment').innerHTML = "Tổng cộng: " + (parseInt(price.split('.').join(""))*(1-percent)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND";
+                } else {
+                    isChecked = '0';
+                    total = parseInt(price.split('.').join(""));
+                    document.querySelector('.total-payment').innerHTML = "Tổng cộng: " + price + " VND";
+                    input.checked = false;
+                    alert("Đơn đặt phòng chưa đạt giá trị tối thiểu của voucher!");
+                }
+            }
+        }
+
+        // lưu giá tiền khi đặt phòng
+        document.querySelector('.button-finish').addEventListener('click', function() {
+            createCookie("total", total, 10);
+            createCookie("isChecked", isChecked, 100000);
+        });
+    </script>
+
+    <!--------------HÀM LẤY GIÁ TRỊ CỦA LOẠI PHÒNG TỪ DATABASE------------------>
+    <?php
+    function load_data_typerom() {
+        include './assets/PHP/connectdb.php';
+        $arr = array();
+        $typerom_rows =  $conn->query("SELECT RoomTypeName, RoomTypePrice FROM roomtype");
+        
+        while($get_data_roomtype = $typerom_rows->fetch_assoc()) {
+        array_push($arr, (object)[
+            'name' => $get_data_roomtype["RoomTypeName"],
+            'price' => $get_data_roomtype["RoomTypePrice"],
+            ]);
+        }
+        return (json_encode($arr,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));                           
+    }
+    ?>    
+    <!--------------HÀM LẤY GIÁ TRỊ CỦA VOUCHER TỪ DATABASE------------------>
+    <?php
+        function load_voucher() {
+            include './assets/PHP/connectdb.php';
+            $arr = array();
+            $typerom_rows =  $conn->query("SELECT VoucherCode, Percent, MinPrice FROM voucher WHERE Status = 1");
+            
+            while($get_data_roomtype = $typerom_rows->fetch_assoc()) {
+            array_push($arr, (object)[
+                'code' => $get_data_roomtype["VoucherCode"],
+                'percent' => $get_data_roomtype["Percent"],
+                'minprice' => $get_data_roomtype["MinPrice"],
+                ]);
+            }
+            return (json_encode($arr,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));                           
+        }
+    ?>    
+
+
+
+
+   
+    <!------------SET ANIMATION KHI CUỘN TRANG----------------------->
+    <script>      
+        var scrollIcon = document.getElementById("scroll-head");
+        var navbar = document.querySelector(".navbar");
+        var img1 = document.getElementById('img-intro1');
+        var img2 = document.getElementById('img-intro2');
+        var text_intro = document.querySelector('.text-intro');
+
+        window.onscroll = function() {
+            myScroll(img1, 350, `dropdown 2s forwards`);
+            myScroll(img2, 350, `growup 2s forwards`);
+            myScroll(text_intro, 350, `fromLeftUp 2s forwards`);
+            if (document.body.scrollTop > 1861 || document.documentElement.scrollTop > 1861)
+            {
+                scrollIcon.style.opacity= "1";
+            } else {
+                scrollIcon.style.opacity= "0";
+            }
+            if (window.pageYOffset >= document.getElementById("header").clientHeight) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        };
+        scrollIcon.onclick = function() {
+            scrollTo(0,0);
+        } 
+        function myScroll(element, scrollTop, animation) {
+            if (document.body.scrollTop > scrollTop || document.documentElement.scrollTop > scrollTop) {
+
+                element.style.animation = animation;
+          } 
+        }   
+    </script>
+
+    <!------------SET ĐIỀU KIỆN ĐỂ VÀO TRANG QUẢN LÝ------------------->
+    <?php
+        function get_password() {
+            include './assets/PHP/connectdb.php';
+            $password =  $conn->query("select * from user")->fetch_assoc()["password"];
+            return (json_encode($password,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+        }
+    ?>
+    <script lang="javascript">
+        $('#btn-openadmin').click(function() {
+            var pass = JSON.parse('<?= get_password(); ?>');
+            if ($('#password').val() === pass) {
+                window.location='admin-manage.html';
+            }
+            else {
+                alert('Sai mật khẩu!');
+            }
+        })
+    </script>
+    
+    <!-------------SET SỰ KIỆN KHI GỬI BUTTON ĐÁNH GIÁ----------------->
+    <script>
+        var btnRating = document.getElementById('send-review');
+        var radioRating = document.querySelector('input[name="rate"]:checked').value;
+        var text = document.getElementById('text-review').value;
+        var form =document.getElementById('rating-form');
+
+        form.onsubmit = function(e) {
+            e.preventDefault();
+            if (getCookie("flagLogin") === "0") {
+                modal.classList.add('open');  
+            }
+            else {
+                form.submit();
+            }
+        }
+    </script>
+ 
+    <!-------------CÁC LINK BOOTSTRAP, MAP GOOGLE---------------------->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly" defer></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+</body>

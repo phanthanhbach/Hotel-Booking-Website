@@ -1,0 +1,142 @@
+<?php error_reporting(0) ?>
+<div id="header">
+    <div class="frame">
+        <div id="login-container">
+            <div><i class="ti-user icon-user"></i></div>
+            <p id="login">Đăng nhập</p>
+        </div>
+        <div class="logout-container">
+            <div class="history">
+                <i class="ti-time icon-history"></i>
+                <div id="history-text">Lịch sử đặt phòng</div>
+            </div>
+            <div class="logout">
+                <i class="fa-solid fa-arrow-right-from-bracket icon-logout"></i>
+                <div id="logout-text">Đăng xuất</div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- form đăng nhập client -->
+    <div class="modal-login">
+      <div class="modal-login-container">
+          <div class="close-login">
+              <i id="icon-close-login" class="fa-solid fa-xmark"></i>
+          </div>
+          <div class="img"></div>
+          <div class="login">
+              <div class="login-container">
+                  <div class="main">
+                      <div class="welcome">
+                          <p class="intro">WELCOME TO ALOHA</p>
+                          <p class="suggestion">Đăng nhập để sử dụng đầy đủ các tính năng</p>
+                          <i class="ti-unlock stapler-icon"></i>
+                      </div>
+                      <?php
+                      require_once './vendor/autoload.php';
+                      include './assets/PHP/config-login.php'; 
+                      if ($check == 0) {
+                  ?>
+                      <button class="btn-login" onclick="location.href='<?php echo $url; ?>'">
+                          <div class="img-icon">
+                              <img src="./assets/img/icon-gg.png" alt="" width="30px">
+                          </div>
+                          <p class="text-login">Đăng nhập với Google</p>
+                      </button>
+                      <?php 
+                      } else if ($check == 1){
+                  ?>
+                      <script>
+                          // var email = '<?php echo $email ?>';
+                          window.history.pushState("", "Title", "/aloha/home.html");
+                          document.cookie = "flagLogin = 1";
+                          document.cookie = "nameLogin" + "=" + '<?php echo $name ?>';
+                          document.cookie = "emailLogin" + "=" + '<?php echo $email ?>';
+                      </script>
+                      <?php
+                      }
+                  ?>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark p-md-3 shadow">
+  <a class="navbar-brand" href="home.html">
+    <img src="./assets/img/logo/logo.png" alt="logo" style="width: 150px; margin-bottom: 0px;">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container">
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="mx-auto"></div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="home.html">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="room.html">Phòng</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="service.html">Dịch vụ</a>          
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="event.html">Sự kiện</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="home.html#review">Đánh giá</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#footer">Liên hệ</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-------------DUY TRÌ ĐĂNG NHẬP------------->
+<script>
+      function getCookie(name) {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+      if(getCookie("nameLogin")) {
+          document.getElementById('login').innerHTML = getCookie("nameLogin");
+      }
+</script>
+
+<!---------------------LOGOUT-------------------------->
+<script>
+      document.querySelector('.logout').addEventListener('click', function() {
+        document.cookie = "flagLogin = 0";
+        document.cookie = "nameLogin" + "=" + "Đăng nhập";
+        window.location.href = "http://localhost:8080/aloha/home.html";
+      });
+</script>
+
+<!----------ĐĂNG NHẬP KHI MỚI VÀO WEB LẦN ĐẦU TIÊN + TẮT FORM ĐĂNG NHẬP + MỞ SUBNAV TRONG MOBILE----->
+<script>
+  // login + logout
+  var modal = document.querySelector('.modal-login');
+  // var name_account = document.querySelector('#login');
+  var dropdownLogout = document.querySelector('.logout-container');
+  document.querySelector('#login-container').addEventListener('click', function () {
+      if (getCookie("flagLogin") === "0") {
+          modal.classList.add('open');
+      }
+      else {
+          dropdownLogout.classList.toggle('open');
+      }
+  });
+  document.getElementById('icon-close-login').addEventListener('click', function () {
+      modal.classList.remove('open');
+  });
+
+</script>
